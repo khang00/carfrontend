@@ -12,13 +12,14 @@
 
     <h2>Feature</h2>
     <div class="feature">
-      <car
-        class="car"
-        v-for="car in cars"
-        v-bind:key="car.id"
-        v-bind:car="car"
-        role="1"
-      />
+      <div class="big-car">
+        <car class="car" v-bind:car="this.cars[0]" width="40" />
+      </div>
+      <div class="small-cars">
+        <car class="car" v-bind:car="this.cars[1]" width="" direction="horizontal" />
+        <car class="car" v-bind:car="this.cars[2]" direction="horizontal" />
+        <car class="car" v-bind:car="this.cars[3]" direction="horizontal" />
+      </div>
     </div>
 
     <h2>Recent</h2>
@@ -28,6 +29,7 @@
         v-for="car in cars"
         v-bind:key="car.id"
         v-bind:car="car"
+        width="24.5"
       />
     </div>
   </div>
@@ -79,7 +81,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  
   h2 {
     font-size: 40px;
   }
@@ -110,15 +112,39 @@ export default {
 
     .filter {
       position: relative;
-      height: 31vh;
+      padding: 4% 0%;
+    }
+  }
+
+  .feature {
+    display: flex;
+    width: 80%;
+    align-items: center;
+    justify-content: space-between;
+
+    .big-car{
+      margin-right: 3%;
+    }
+
+    .small-cars{
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .small-cars .car{
+      width: 100%;
     }
   }
 
   .recent {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 5%;
+    grid-column-gap: 2.5%;
+    grid-row-gap: 5%;
     margin-bottom: 5%;
+    width: 80%;
   }
 }
 </style>
