@@ -51,7 +51,7 @@ export default {
 @import url("https://fonts.googleapis.com/css?family=Montserrat:regular,100,200,300,350,400,500,600,700,800,900&display=swap");
 @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css);
 #nav{
-  display: none;
+  
 }
 
 body {

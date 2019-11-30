@@ -19,19 +19,19 @@ export default {
     return {
       input: "",
       placeHolder: "  Search",
-      fontWeight: "fontWeight: 900"
+      fontWeight: "fontWeight: 600"
     };
   },
   methods: {
     searchFocus: function() {
       this.placeHolder = "";
-      this.fontWeight = "fontWeight: 100";
+      this.fontWeight = "fontWeight: 400";
     },
     searchFocusOut: function() {
       this.placeHolder = "  Search";
 
-      if (this.input.length > 0) this.fontWeight = "fontWeight: 100";
-      else this.fontWeight = "fontWeight: 900";
+      if (this.input.length > 0) this.fontWeight = "fontWeight: 400";
+      else this.fontWeight = "fontWeight: 600";
     }
   },
   mounted: function() {
