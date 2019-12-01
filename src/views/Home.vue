@@ -1,4 +1,4 @@
-<template>
+<template v-if="this.cars">
   <div class="car-display">
     <h2 class="heading">Caree</h2>
     <div class="search">
@@ -14,22 +14,27 @@
     <div class="feature-wrapper">
       <div class="feature">
         <div class="big-car">
-          <car class="car" v-bind:car="this.cars[0]" width="40" />
+          <car
+            v-on:rent="rentCar(event, car.id)"
+            class="car"
+            v-bind:car="this.cars[0]"
+            width="40"
+          />
         </div>
         <div class="small-cars">
           <car
-            v-bind:car="this.cars[1]"
-            width=""
+            v-on:rent="rentCar(event, car.id)"
+            v-for="car in cars.slice(1, 4)"
+            v-bind:key="car.id"
+            v-bind:car="car"
             direction="horizontal"
           />
-          <car v-bind:car="this.cars[2]" direction="horizontal" />
-          <car v-bind:car="this.cars[3]" direction="horizontal" />
         </div>
       </div>
     </div>
 
     <h2>Recent</h2>
-    <div class="recent" >
+    <div class="recent">
       <car
         v-on:rent="rentCar(event, car.id)"
         v-for="car in cars"
@@ -42,17 +47,16 @@
 </template>
 
 <script>
-import axios from "axios";
 import Car from "../components/Car.vue";
 import Search from "../components/Search.vue";
 import CarFilter from "../components/Filter.vue";
 
 export default {
   name: "Home",
-  data: function() {
-    return {
-      cars: ''
-    };
+  computed: {
+    cars: function() {
+      return this.$store.getters.getCars;
+    }
   },
   components: {
     car: Car,
@@ -60,25 +64,13 @@ export default {
     "car-filter": CarFilter
   },
   methods: {
-    rentCar: function(event, id){
+    rentCar: function(event, id) {
       /* eslint-disable no-console */
-      console.log(id);
+      console.log(this.cars[id]);
     }
   },
   mounted: function() {
-    axios({
-      method: "GET",
-      url: "http://35.198.247.39/CarRentalManagement/renting/car/available",
-      config: {
-        headers: {
-          // set content type
-          "content-type": "application/json",
-          charset: "utf-8"
-        }
-      }
-    }).then(reponse => {
-      this.cars = reponse.data;
-    });
+    this.$store.dispatch('construct');
   }
 };
 </script>
@@ -98,7 +90,7 @@ export default {
     font-size: 40px;
   }
 
-  .heading{
+  .heading {
     text-align: center;
     font-size: 70px;
   }

@@ -14,7 +14,7 @@ import 'font-awesome/css/font-awesome.min.css';
 import 'font-awesome/css/font-awesome.css'; */
 
 Vue.config.productionTip = false;
-
+export const EventBus = new Vue();
 new Vue({
   router,
   store,

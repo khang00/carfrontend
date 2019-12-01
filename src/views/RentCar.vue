@@ -8,9 +8,9 @@
 export default {
   name: 'RentCar',
   methods: {
-    rentCar: function () {
+    rentCar: function (car) {
       /* eslint-disable no-console */
-      console.log('car');
+      console.log(car);
     }
   }
 }
