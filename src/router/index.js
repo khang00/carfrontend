@@ -1,26 +1,20 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import ViewCar from "../views/ViewCar.vue";
-import Car from "../views/Car.vue";
-import Search from "../views/Search.vue";
+import Home from "../views/Home.vue";
+import AddCar from "../views/AddCar.vue"
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "Search",
-    component: Search
+    name: "Home",
+    component: Home
   },
   {
-    path: "/ViewCar",
-    name: "ViewCar",
-    component: ViewCar
-  },
-  {
-    path: "/Car",
-    name: "Car",
-    component: Car
+    path: "/AddCar",
+    name: "AddCar",
+    component: AddCar
   }
 ];
 
