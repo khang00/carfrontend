@@ -185,6 +185,8 @@ input {
 #price,
 #seat {
   margin: 0 0 0 7px;
+  font-size: 15px;
+  font-weight: 400;
 }
 #edit {
   cursor: pointer;

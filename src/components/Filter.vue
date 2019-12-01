@@ -4,43 +4,22 @@
       <h2>Filter</h2>
 
       <div class="select">
-        <select>
-          <option value>Seats</option>
+        <select v-for="dropBox in dropBoxs" v-bind:key="dropBox.title">
+          <option v-bind:value="dropBox.title">{{dropBox.title}}</option>
           <option
-            value="car.NumberSeat"
-            v-bind:key="car.NumberSeat"
-            v-for="car in cars"
-            >{{ car.NumberSeat }}</option
-          >
-        </select>
-        <select>
-          <option value>Location</option>
-          <option value="car.Place" v-bind:key="car.Name" v-for="car in cars">{{
-            car.Place
-          }}</option>
-        </select>
-        <select>
-          <option value>Price</option>
-          <option value="car.Price" v-bind:key="car.Name" v-for="car in cars">{{
-            car.Price
-          }}</option>
-        </select>
-        <select>
-          <option value>Color</option>
-          <option value="car.Color" v-bind:key="car.Name" v-for="car in cars">{{
-            car.Color
-          }}</option>
-        </select>
-        <select>
-          <option value>Brand</option>
-          <option value="car.Brand" v-bind:key="car.Name" v-for="car in cars">{{
-            car.Brand
-          }}</option>
+            v-bind:key="option"
+            v-bind:value="option"
+            v-for="option in dropBox.options"
+          >{{option}}</option>
         </select>
       </div>
 
       <form action class="choose">
-        <div class="choice">
+        <div v-for="title in checkBoxs" v-bind:key="title">
+          <input type="checkbox" v-bind:value="title" />
+          {{title}}
+        </div>
+        <!-- <div class="choice">
           <input type="checkbox" name="text1" value="text" checked />Text
         </div>
         <div class="choice">
@@ -57,18 +36,13 @@
         </div>
         <div class="choice">
           <input type="checkbox" name="text6" value="text" />Text
-        </div>
+        </div>-->
       </form>
     </div>
 
     <div class="button">
       <button id="submit">Filter</button>
-      <button
-        id="cancel"
-        onclick="window.location.href = '../components/HelloWorld.vue';"
-      >
-        Cancel
-      </button>
+      <button id="cancel" onclick="window.location.href = '../components/HelloWorld.vue';">Cancel</button>
     </div>
   </div>
 </template>
@@ -76,6 +50,7 @@
 <script>
 export default {
   name: "CarFilter",
+  props: ["dropBoxs", "checkBoxs"],
   data: function() {
     return {
       cars: [
@@ -121,7 +96,7 @@ select {
 }
 select {
   -moz-appearance: none;
-  -webkit-appearance:none;
+  -webkit-appearance: none;
   appearance: none;
 }
 .filter-item {
@@ -157,7 +132,7 @@ select {
   font-size: 15px;
 }
 .select {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 .button {
   width: 20%;
@@ -191,7 +166,7 @@ button#submit {
   margin-bottom: 20px;
 }
 
-button:hover{
+button:hover {
   cursor: pointer;
 }
 

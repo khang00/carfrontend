@@ -7,7 +7,7 @@
     </div>
 
     <div class="car-filter">
-      <car-filter class="filter" />
+      <car-filter v-bind:dropBoxs="dropBoxList" v-bind:checkBoxs="checkBoxList"/>
     </div>
 
     <h2>Feature</h2>
@@ -53,6 +53,25 @@ import CarFilter from "../components/Filter.vue";
 
 export default {
   name: "Home",
+  data: function() {
+    return {
+      dropBoxList: [
+        {
+          title: 'Brand',
+          options: ['Toyota', 'BMW', 'Kia', 'Ford', 'Porche']
+        },
+        {
+          title: 'Color',
+          options: ['black', 'Red', 'Yellow', 'Grey']
+        },
+        {
+          title: 'Seat',
+          options: ['5', '7', '16']
+        }
+      ],
+      checkBoxList: ['opt1', 'opt2', 'opt3']
+    }
+  },
   computed: {
     cars: function() {
       return this.$store.getters.getCars;
