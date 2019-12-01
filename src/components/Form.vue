@@ -44,7 +44,7 @@
       </div>
     </div>
     <div id="image">
-      <img src="../../wallpaper/download.png" alt="" />
+      <img src="http://35.198.247.39/images/car.jpg" alt="" />
       <label for="file"><i class="fas fa-file-upload"></i></label>
       <input style="display:none" id="file" type="file" />
     </div>

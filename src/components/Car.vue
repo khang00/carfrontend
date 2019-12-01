@@ -1,60 +1,70 @@
 <template>
-  <div v-if="direction == 'horizontal'" class="car-item-row" v-bind:style="{ width: width + 'vw', height: height + 'vh' }">
-    <img id="image-row" alt="carimg" src="http://35.198.247.39/images/car.jpg" />
+  <div class="car" v-on:click="rent">
+    <div
+      v-if="direction == 'horizontal'"
+      class="car-item-row"
+      v-bind:style="{ width: width + 'vw', height: height + 'vh' }"
+    >
+      <img id="image-row" alt="carimg" v-bind:src="car.imageUrl" />
 
-    <div id="content">
-      <div class="line">
-        <p id="brand">{{ car.brand }}</p>
-        <div v-if="role == 'admin'" id="box-status">
-          <p id="status">{{ car.status }}</p>
+      <div id="content">
+        <div class="line">
+          <p id="brand">{{ car.brand }}</p>
+          <div v-if="role == 'admin'" id="box-status">
+            <p id="status">{{ car.status }}</p>
+          </div>
         </div>
-      </div>
-      <p id="model">{{ car.model }}</p>
-      <div class="inform-line">
-        <i class="fas fa-search-location"></i>
-        <p id="location">{{ car.location }}</p>
-      </div>
-      <div class="inform-line">
-        <i class="fas fa-tag"></i>
-        <p id="price">{{ car.price }}</p>
-      </div>
-
-      <div class="line">
+        <p id="model">{{ car.model }}</p>
         <div class="inform-line">
-          <i class="fas fa-user-check"></i>
-          <p id="seat">{{ car.seat + " seats"}}</p>
+          <i class="fas fa-search-location"></i>
+          <p id="location">{{ car.location }}</p>
         </div>
-        <i v-if="role == 'admin'" id="edit" class="fas fa-edit"></i>
+        <div class="inform-line">
+          <i class="fas fa-tag"></i>
+          <p id="price">{{ car.price }}</p>
+        </div>
+
+        <div class="line">
+          <div class="inform-line">
+            <i class="fas fa-user-check"></i>
+            <p id="seat">{{ car.seat + " seats" }}</p>
+          </div>
+          <i v-if="role == 'admin'" id="edit" class="fas fa-edit"></i>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div v-else class="car-item-col" v-bind:style="{ width: width + 'vw', height: height + 'vh' }">
-    <img id="image-col" alt="carimg" src="http://35.198.247.39/images/car.jpg" />
+    <div
+      v-else
+      class="car-item-col"
+      v-bind:style="{ width: width + 'vw', height: height + 'vh' }"
+    >
+      <img id="image-col" alt="carimg" v-bind:src="car.imageUrl" />
 
-    <div id="content">
-      <div class="line">
-        <p id="brand">{{ car.brand }}</p>
-        <div v-if="role == 'admin'" id="box-status">
-          <p id="status">{{ car.status }}</p>
+      <div id="content">
+        <div class="line">
+          <p id="brand">{{ car.brand }}</p>
+          <div v-if="role == 'admin'" id="box-status">
+            <p id="status">{{ car.status }}</p>
+          </div>
         </div>
-      </div>
-      <p id="model">{{ car.model }}</p>
-      <div class="inform-line">
-        <i class="fas fa-search-location"></i>
-        <p id="location">{{ car.location }}</p>
-      </div>
-      <div class="inform-line">
-        <i class="fas fa-tag"></i>
-        <p id="price">{{ car.price }}</p>
-      </div>
-
-      <div class="line">
+        <p id="model">{{ car.model }}</p>
         <div class="inform-line">
-          <i class="fas fa-user-check"></i>
-          <p id="seat">{{ car.seat + " seats"}}</p>
+          <i class="fas fa-search-location"></i>
+          <p id="location">{{ car.location }}</p>
         </div>
-        <i v-if="role == 'admin'" id="edit" class="fas fa-edit"></i>
+        <div class="inform-line">
+          <i class="fas fa-tag"></i>
+          <p id="price">{{ car.price }}</p>
+        </div>
+
+        <div class="line">
+          <div class="inform-line">
+            <i class="fas fa-user-check"></i>
+            <p id="seat">{{ car.seat + " seats" }}</p>
+          </div>
+          <i v-if="role == 'admin'" id="edit" class="fas fa-edit"></i>
+        </div>
       </div>
     </div>
   </div>
@@ -63,15 +73,40 @@
 <script>
 export default {
   name: "Car",
-  props: ["car", "role", "width", "height", "direction"]
+  props: {
+    car: {
+      type: Object,
+      default: function () {
+        return {};
+      }
+    },
+    role: {
+      type: String,
+      default: ''
+    },
+    width: {
+      type: String,
+      default: ''
+    },
+    height: {
+      type: String,
+      default: ''
+    },
+    direction: {
+      type: String,
+      default: ''
+    }
+  },
+  methods: {
+    rent: function(event){
+      this.$emit('rent', event);
+    }
+  }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-@import url(https://fonts.googleapis.com/css?family=Montserrat:regular,bold,600,500&display=swap);
-@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css);
-
 p,
 input {
   font-family: "Montserrat";
@@ -87,10 +122,13 @@ input {
   display: flex;
   flex-direction: row;
   border-radius: 9px;
-  width: 25vw;
+  //width: 25vw;
   box-shadow: 3px 3px 25px rgba(0, 0, 0, 0.161);
 }
-.car-item:hover {
+.car {
+  width: 100%;
+}
+.car:hover {
   cursor: pointer;
 }
 .line {

@@ -18,21 +18,20 @@
         </div>
         <div class="small-cars">
           <car
-            class="car"
             v-bind:car="this.cars[1]"
             width=""
             direction="horizontal"
           />
-          <car class="car" v-bind:car="this.cars[2]" direction="horizontal" />
-          <car class="car" v-bind:car="this.cars[3]" direction="horizontal" />
+          <car v-bind:car="this.cars[2]" direction="horizontal" />
+          <car v-bind:car="this.cars[3]" direction="horizontal" />
         </div>
       </div>
     </div>
 
     <h2>Recent</h2>
-    <div class="recent">
+    <div class="recent" >
       <car
-        class="car"
+        v-on:rent="rentCar(event, car.id)"
         v-for="car in cars"
         v-bind:key="car.id"
         v-bind:car="car"
@@ -52,13 +51,19 @@ export default {
   name: "Home",
   data: function() {
     return {
-      cars: null
+      cars: ''
     };
   },
   components: {
     car: Car,
     search: Search,
     "car-filter": CarFilter
+  },
+  methods: {
+    rentCar: function(event, id){
+      /* eslint-disable no-console */
+      console.log(id);
+    }
   },
   mounted: function() {
     axios({
@@ -140,16 +145,10 @@ export default {
 
       .small-cars {
         height: 100%;
-        display: grid;
+        width: 100%;
+        display: flex;
         flex-direction: column;
         justify-content: space-between;
-        display: grid;
-        grid-template-rows: 1fr 1fr 1fr;
-        grid-row-gap: 2vw;
-      }
-
-      .small-cars .car {
-        width: 100%;
       }
     }
   }
