@@ -136,10 +136,10 @@ input {
 #brand {
   color: #b10000;
   font-weight: 600;
-  margin: 0 0 0px 0;
+  margin: 0 0 3px 0;
 }
 #model {
-  font-weight: bold;
+  font-weight: 600;
   margin: 0 0 7px 0;
   font-size: 20px;
 }

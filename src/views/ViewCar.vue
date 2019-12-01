@@ -1,17 +1,10 @@
 <template>
-  <div class="View">
-    <navigation/>
-  </div>
+  <div class="View"></div>
 </template>
 
 <script>
-import Navigation from "../components/Navigation.vue";
-
 export default {
-  name: "ViewCar",
-  components: {
-    navigation: Navigation
-  }
+  name: "ViewCar"
 };
 </script>
 

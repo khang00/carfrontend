@@ -5,7 +5,7 @@
       <router-link to="/ViewCar">View Car</router-link> |
       <router-link to="/Car">Car</router-link>
     </div>
-    <router-view />
+    <router-view/>
     <!-- <home v-bind:text="car"/> -->
     <!-- <div class="body-wrapper">
       <div class="recent">
@@ -31,7 +31,7 @@ export default {
   mounted: function() {
     axios({
       method: "GET",
-      url: "http://127.0.0.1:8080/CarRentalManagement/renting/car/available",
+      url: "http://35.198.247.39/CarRentalManagement/renting/car/available",
       config: {
         headers: {
           // set content type

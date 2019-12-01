@@ -95,6 +95,7 @@ export default {
 
   .heading{
     text-align: center;
+    font-size: 70px;
   }
 
   .search {
@@ -120,12 +121,6 @@ export default {
     margin-top: 40px;
     display: flex;
     justify-content: center;
-
-    .filter {
-      width: 70%;
-      position: relative;
-      padding: 3% 0%;
-    }
   }
 
   .feature-wrapper {
@@ -140,14 +135,17 @@ export default {
       justify-content: space-between;
 
       .big-car {
-        margin-right: 3%;
+        margin-right: 2vw;
       }
 
       .small-cars {
         height: 100%;
-        display: flex;
+        display: grid;
         flex-direction: column;
         justify-content: space-between;
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-row-gap: 2vw;
       }
 
       .small-cars .car {
@@ -159,8 +157,8 @@ export default {
   .recent {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-column-gap: 2.5%;
-    grid-row-gap: 5%;
+    grid-column-gap: 2vw;
+    grid-row-gap: 2vw;
     margin-bottom: 5%;
     width: 80%;
   }
