@@ -5,25 +5,47 @@ Vue.use(Vuex);
 
 const carsModule = {
   state: {
-    cars: []
+    cars: [],
+    displayCars: [],
+    carAttributes: [],
+    carSearchText: ''
   },
   getters: {
-    getCars: state => {
+    getCars: (state) => {
       return state.cars;
+    },
+    getCarAttributes: (state) => {
+      return state.carAttributes;
+    },
+    getDisplayCars: (state) => {
+      return state.displayCars;
+    },
+    getCarSearchText: (state) => {
+      return state.carSearchText;
     }
   },
   mutations: {
-    construct(state, cars) {
+    setCars(state, cars) {
       state.cars = cars;
-      /* eslint-disable no-console */
-      console.log(state.cars);
+    },
+    setCarAttributes(state, carAttributes) {
+      state.carAttributes = carAttributes;
+    },
+    setDisplayCars(state, cars) {
+      state.displayCars = cars;
+    },
+    setCarSearchText(state, text) {
+      var updateDisplayCars = [];
+      state.cars.forEach(car => {
+        if (car.model.search(text) != -1)
+          updateDisplayCars.push(car);
+      });
+      state.carSearchText = text;
+      state.displayCars = updateDisplayCars;
     }
   },
   actions: {
-    construct(context) {
-      /* eslint-disable no-console */
-      console.log("store");
-      
+    getCarsFromDB(context) {
       axios({
         method: "GET",
         url: "http://35.198.247.39/CarRentalManagement/renting/car/available",
@@ -37,7 +59,33 @@ const carsModule = {
       }).then(response => {
         /* eslint-disable no-console */
         console.log("store2");
-        context.commit("construct", response.data);
+        context.commit("setCars", response.data);
+        context.commit("setDisplayCars", response.data);
+      });
+    },
+    getCarAttributesFromDB(context) {
+      axios({
+        method: "GET",
+        url: "http://35.198.247.39/CarRentalManagement/renting/car/filter",
+        config: {
+          headers: {
+            // set content type
+            "content-type": "application/json",
+            charset: "utf-8"
+          }
+        }
+      }).then(response => {
+        var attributes = {};
+        (response.data).forEach(record => {
+          if (attributes[record.type] == null)
+            attributes[record.type] = [];
+          attributes[record.type].push(record.value);
+        });
+        var outputAttributes = [];
+        for (var i in attributes) {
+          outputAttributes.push({ title: i, options: attributes[i] });
+        }
+        context.commit("setCarAttributes", outputAttributes);
       });
     }
   }

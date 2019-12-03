@@ -1,47 +1,47 @@
-<template v-if="this.cars">
+<template v-if="this.cars" >
   <div class="car-display">
     <h2 class="heading">Caree</h2>
     <div class="search">
       <search />
-      <i class="fas fa-sliders-h slider"></i>
+      <i class="fas fa-sliders-h slider" v-on:click="toggleFilter"></i>
     </div>
 
-    <div class="car-filter">
-      <car-filter v-bind:dropBoxs="dropBoxList" v-bind:checkBoxs="checkBoxList"/>
+    <div id="car-filter">
+      <car-filter v-bind:dropBoxes="dropBoxList" />
     </div>
 
-    <h2>Feature</h2>
-    <div class="feature-wrapper">
-      <div class="feature">
-        <div class="big-car">
-          <car
-            v-on:rent="rentCar(event, car.id)"
-            class="car"
-            v-bind:car="this.cars[0]"
-            width="40"
-          />
-        </div>
-        <div class="small-cars">
-          <car
-            v-on:rent="rentCar(event, car.id)"
-            v-for="car in cars.slice(1, 4)"
-            v-bind:key="car.id"
-            v-bind:car="car"
-            direction="horizontal"
-          />
+    <div id="feature" v-if="!isSearchDisplay">
+      <h2>Feature</h2>
+      <div class="feature-wrapper">
+        <div class="feature">
+          <div class="big-car">
+            <car v-on:rent="rentCar(event, car.id)" class="car" v-bind:car="this.cars[0]" />
+          </div>
+          <div class="small-cars">
+            <car
+              v-on:rent="rentCar(event, car.id)"
+              v-for="car in cars.slice(1, 4)"
+              v-bind:key="car.id"
+              v-bind:car="car"
+              direction="horizontal"
+            />
+          </div>
         </div>
       </div>
     </div>
 
-    <h2>Recent</h2>
-    <div class="recent">
-      <car
-        v-on:rent="rentCar(event, car.id)"
-        v-for="car in cars"
-        v-bind:key="car.id"
-        v-bind:car="car"
-        width="24.5"
-      />
+    <div id="recent">
+      <h2 v-if="!isSearchDisplay">Recent</h2>
+      <h2 v-else>Results</h2>
+      <p v-if="displayCars.length == 0">No car found</p>
+      <div class="recent">
+        <car
+          v-on:rent="rentCar(event, car.id)"
+          v-for="car in displayCars"
+          v-bind:key="car.id"
+          v-bind:car="car"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -54,27 +54,23 @@ import CarFilter from "../components/Filter.vue";
 export default {
   name: "Home",
   data: function() {
-    return {
-      dropBoxList: [
-        {
-          title: 'Brand',
-          options: ['Toyota', 'BMW', 'Kia', 'Ford', 'Porche']
-        },
-        {
-          title: 'Color',
-          options: ['black', 'Red', 'Yellow', 'Grey']
-        },
-        {
-          title: 'Seat',
-          options: ['5', '7', '16']
-        }
-      ],
-      checkBoxList: ['opt1', 'opt2', 'opt3']
-    }
+    return {};
   },
   computed: {
     cars: function() {
       return this.$store.getters.getCars;
+    },
+    displayCars: function() {
+      return this.$store.getters.getDisplayCars;
+    },
+    carSearchText: function() {
+      return this.$store.getters.getCarSearchText;
+    },
+    isSearchDisplay: function() {
+      return this.$store.getters.getCarSearchText.length > 0;
+    },
+    dropBoxList: function() {
+      return this.$store.getters.getCarAttributes;
     }
   },
   components: {
@@ -83,19 +79,30 @@ export default {
     "car-filter": CarFilter
   },
   methods: {
+    toggleFilter: function() {
+      var x = document.getElementById("car-filter");
+      if (x.style.display == "none") {
+        x.style.display = "flex";
+      } else {
+        x.style.display = "none";
+      }
+      this.carClones = [];
+    },
     rentCar: function(event, id) {
       /* eslint-disable no-console */
       console.log(this.cars[id]);
     }
   },
   mounted: function() {
-    this.$store.dispatch('construct');
+    this.$store.dispatch("getCarsFromDB");
+    this.$store.dispatch("getCarAttributesFromDB");
   }
 };
 </script>
 
 <style lang="scss" scoped>
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap");
+
 .car-display {
   position: relative;
   width: 80%;
@@ -117,6 +124,7 @@ export default {
   .search {
     display: flex;
     width: 100%;
+    margin: 0 0 40px 0;
     justify-content: center;
     align-items: center;
 
@@ -131,14 +139,21 @@ export default {
     }
   }
 
-  .car-filter {
+  #car-filter {
     position: relative;
     width: 100%;
-    margin-top: 40px;
+    margin: 0 0 40px 0;
     display: flex;
     justify-content: center;
   }
 
+  #feature, #recent {
+    margin-bottom: 40px;
+    h2 {
+      margin-top: 0;
+    }
+  }
+  
   .feature-wrapper {
     display: flex;
     width: 100%;
@@ -151,12 +166,13 @@ export default {
       justify-content: space-between;
 
       .big-car {
-        margin-right: 2vw;
+        margin-right: 2.5vw;
+        width: 50%;
       }
 
       .small-cars {
         height: 100%;
-        width: 100%;
+        width: 50%;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -167,10 +183,10 @@ export default {
   .recent {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-column-gap: 2vw;
-    grid-row-gap: 2vw;
+    grid-column-gap: 3vw;
+    grid-row-gap: 3vw;
     margin-bottom: 5%;
-    width: 80%;
+    width: 100%;
   }
 }
 </style>

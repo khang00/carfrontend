@@ -4,7 +4,7 @@
       <h2>Filter</h2>
 
       <div class="select">
-        <select v-for="dropBox in dropBoxs" v-bind:key="dropBox.title">
+        <select v-for="dropBox in dropBoxes" v-bind:key="dropBox.title">
           <option v-bind:value="dropBox.title">{{dropBox.title}}</option>
           <option
             v-bind:key="option"
@@ -15,28 +15,10 @@
       </div>
 
       <form action class="choose">
-        <div v-for="title in checkBoxs" v-bind:key="title">
+        <div v-for="title in checkBoxes" v-bind:key="title">
           <input type="checkbox" v-bind:value="title" />
           {{title}}
         </div>
-        <!-- <div class="choice">
-          <input type="checkbox" name="text1" value="text" checked />Text
-        </div>
-        <div class="choice">
-          <input type="checkbox" name="text2" value="text" />Text
-        </div>
-        <div class="choice">
-          <input type="checkbox" name="text3" value="text" />Text
-        </div>
-        <div class="choice">
-          <input type="checkbox" name="text4" value="text" />Text
-        </div>
-        <div class="choice">
-          <input type="checkbox" name="text5" value="text" />Text
-        </div>
-        <div class="choice">
-          <input type="checkbox" name="text6" value="text" />Text
-        </div>-->
       </form>
     </div>
 
@@ -50,37 +32,7 @@
 <script>
 export default {
   name: "CarFilter",
-  props: ["dropBoxs", "checkBoxs"],
-  data: function() {
-    return {
-      cars: [
-        {
-          Name: "Tesla",
-          Place: "Ho Chi Minh City, Viet Nam",
-          Price: "200$/day",
-          NumberSeat: "4 seats",
-          Color: "Black",
-          Brand: "Audi"
-        },
-        {
-          Name: "Tesla2",
-          Place: "Hai phong City, Viet Nam",
-          Price: "500$/day",
-          NumberSeat: "7 seats",
-          Color: "White",
-          Brand: "Teslaaa"
-        },
-        {
-          Name: "Tesla3",
-          Place: "Ha Noi City, Viet Nam",
-          Price: "1000$/day",
-          NumberSeat: "50 seats",
-          Color: "Grey",
-          Brand: "Honda"
-        }
-      ]
-    };
-  }
+  props: ["dropBoxes", "checkBoxes"]
 };
 </script>
 
