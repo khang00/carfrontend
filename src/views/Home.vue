@@ -69,7 +69,7 @@ export default {
       console.log(this.cars[id]);
     }
   },
-  mounted: function() {
+  created: function() {
     this.$store.dispatch('construct');
   }
 };
