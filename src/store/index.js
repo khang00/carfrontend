@@ -80,8 +80,6 @@ const carsModule = {
           }
         }
       }).then(response => {
-        /* eslint-disable no-console */
-        console.log("store2");
         context.commit("setCars", response.data);
         context.commit("setDisplayCars", response.data);
       });
