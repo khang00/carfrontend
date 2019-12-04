@@ -1,12 +1,16 @@
 <template>
   <div class="rent-car">
-    {{ this.car }}
+    <car-detail v-bind:car="car"/>
   </div>
 </template>
 
 <script>
+import CarDetail from "../components/CarDetail.vue";
 export default {
   name: "RentCar",
+  components: {
+    "car-detail": CarDetail
+  },
   data: function() {
     return {
       car: {}

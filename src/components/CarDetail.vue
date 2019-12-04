@@ -30,51 +30,51 @@
       </div>
     </div>
     <div class="car-inform">
-      <p id="car-name">{{ carname }}</p>
+      <p id="car-model">{{ car.model }}</p>
       <hr />
       <p id="car-location">
         <strong>Location:</strong>
-        {{ carlocation }}
+        {{ car.location }}
       </p>
       <p id="car-brand">
         <strong>Brand:</strong>
-        {{ carbrand }}
+        {{ car.brand }}
       </p>
       <p id="car-price">
         <strong>Price:</strong>
-        {{ carprice }}
+        {{ car.price }}
       </p>
       <p id="car-seat">
         <strong>Seats:</strong>
-        {{ carseat }}
+        {{ car.seat }}
       </p>
       <p id="car-description">
         <strong>Description:</strong>
-        {{ cardescription }}
+        {{ car.description }}
       </p>
     </div>
   </div>
 </template>
 
 <script>
-import car from "../store/script";
 export default {
   name: "CarDetail",
   data: function() {
     return {
-      images: [car.images[0], car.images[1], car.images[2]],
+      images: [this.car.imageUrl, this.car.imageUrl, this.car.imageUrl],
       classes: ["border", "no-border", "no-border"],
 
-      currImage: car.images[0],
-      imageRun: 0,
-
-      carname: car.name,
-      carlocation: car.location,
-      carbrand: car.brand,
-      carprice: car.price,
-      carseat: car.seat,
-      cardescription: car.description
+      currImage: "",
+      imageRun: 0
     };
+  },
+  props: {
+    car: {
+      type: Object,
+      default: function() {
+        return {};
+      }
+    }
   },
   methods: {
     nextimage: function() {
@@ -90,6 +90,9 @@ export default {
       this.currImage = this.images[this.imageRun];
       this.classes[this.imageRun] = "border";
     }
+  },
+  mounted: function() {
+    this.currImage = this.images[0];
   }
 };
 </script>
@@ -151,7 +154,7 @@ p {
   width: 30%;
   margin-left: 0px;
 }
-#car-name {
+#car-model {
   font-size: 50px;
   font-weight: 900;
   margin-bottom: 10px;

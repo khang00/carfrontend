@@ -104,8 +104,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap");
-
 .car-display {
   position: relative;
   width: 80%;
