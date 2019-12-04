@@ -161,7 +161,7 @@ input {
   border-radius: 10px 10px 0px 0px;
 }
 #image-row {
-  width: 40%;
+  height: 158px;
   border-radius: 10px 0px 0px 10px;
 }
 .inform-line {
