@@ -8,11 +8,13 @@
       v-bind:style="fontWeight"
       @focus="searchFocus"
       @focusout="searchFocusOut"
+      @change="updateInput"
     />
   </div>
 </template>
 
 <script>
+
 export default {
   name: "Search",
   data: function() {
@@ -22,6 +24,7 @@ export default {
       fontWeight: "fontWeight: 600"
     };
   },
+  props: ['inputText'],
   methods: {
     searchFocus: function() {
       this.placeHolder = "";
@@ -32,6 +35,9 @@ export default {
 
       if (this.input.length > 0) this.fontWeight = "fontWeight: 400";
       else this.fontWeight = "fontWeight: 600";
+    },
+    updateInput: function() {
+      this.$store.commit('setCarSearchText', this.input);
     }
   },
   mounted: function() {

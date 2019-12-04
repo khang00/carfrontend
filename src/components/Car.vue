@@ -115,7 +115,6 @@ input {
   display: flex;
   flex-direction: column;
   border-radius: 9px;
-  width: 25vw;
   box-shadow: 3px 3px 25px rgba(0, 0, 0, 0.161);
 }
 .car-item-row {
@@ -185,6 +184,8 @@ input {
 #price,
 #seat {
   margin: 0 0 0 7px;
+  font-size: 15px;
+  font-weight: 400;
 }
 #edit {
   cursor: pointer;
