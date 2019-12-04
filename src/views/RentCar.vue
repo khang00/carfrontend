@@ -4,7 +4,7 @@
       <car-detail v-bind:car="car" />
     </div>
     <div class="form-car-wrapper">
-      <car-form/>
+      <car-form />
     </div>
   </div>
 </template>
@@ -31,7 +31,7 @@ export default {
   created: function() {
     this.car = this.getCar(this.$route.params.carId - 1);
   },
-  beforeRouteUpdate: function (to, from, next) {
+  beforeRouteUpdate: function(to, from, next) {
     this.car = this.getCar(to.params.carId - 1);
     next();
   }

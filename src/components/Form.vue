@@ -29,6 +29,10 @@
         <input style="display:none" id="file" type="file" />
       </div>
     </div>
+    <div class="button">
+      <button class="submit" v-on:click="submit">Submit</button>
+      <button class="cancel">Cancel</button>
+    </div>
   </div>
 </template>
 
@@ -50,6 +54,11 @@ export default {
         "Date Of Birth": ""
       }
     };
+  },
+  methods: {
+    submit: function() {
+      this.$emit('request', event);
+    }
   }
 };
 </script>
@@ -114,6 +123,29 @@ export default {
       img {
         border-radius: 50px;
       }
+    }
+  }
+
+  .button {
+    display: flex;
+    margin: 2% 0%;
+    width: 100%;
+    justify-content: center;
+
+    button {
+      padding: 1% 2%;
+      border-radius: 10px;
+    }
+
+    .submit {
+      margin-right: 1%;
+      border-style: none;
+    }
+
+    .cancel {
+      margin-left: 1%;
+      background: white;
+      border-style: solid;
     }
   }
 }
