@@ -95,10 +95,6 @@ export default {
     rentCar: function(event, id) {
       this.$router.push({ name: "RentCar", params: { carId: id } });
     }
-  },
-  mounted: function() {
-    this.$store.dispatch("getCarsFromDB");
-    this.$store.dispatch("getCarAttributesFromDB");
   }
 };
 </script>

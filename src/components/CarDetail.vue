@@ -103,8 +103,7 @@ p {
 }
 #car-detail {
   display: flex;
-  width: 80%;
-  margin: 0 10%;
+  width: 100%;
   filter: drop-shadow(3px 3px 25px rgba(0, 0, 0, 0.361));
 }
 .car-display {

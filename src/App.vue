@@ -9,6 +9,13 @@
 </template>
 
 <script>
+export default{
+  name: "App",
+  mounted: function() {
+    this.$store.dispatch("getCarsFromDB");
+    this.$store.dispatch("getCarAttributesFromDB");
+  }
+}
 </script>
 >
 
