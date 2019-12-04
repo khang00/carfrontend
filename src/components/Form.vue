@@ -6,7 +6,7 @@
         <div
           class="form-item"
           v-bind:key="key"
-          v-for="(value, key) in this.owner"
+          v-for="(value, key) in this.renter"
         >
           <p>{{ key }} :</p>
           <input type="text" />
@@ -47,7 +47,7 @@ export default {
   },
   data: function() {
     return {
-      owner: {
+      renter: {
         Name: "",
         Address: "",
         Phone: "",
@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     submit: function() {
-      this.$emit('request', event);
+      this.$emit('request', this.renter);
     }
   }
 };
