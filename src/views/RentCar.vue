@@ -1,15 +1,19 @@
 <template>
   <div class="rent-car">
     <car-detail v-bind:car="car"/>
+    <car-form/>
+    {{this.car}}
   </div>
 </template>
 
 <script>
 import CarDetail from "../components/CarDetail.vue";
+import Form from "../components/Form.vue"
 export default {
   name: "RentCar",
   components: {
-    "car-detail": CarDetail
+    "car-detail": CarDetail,
+    "car-form": Form
   },
   data: function() {
     return {

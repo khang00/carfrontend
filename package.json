@@ -44,6 +44,9 @@
     ],
     "parserOptions": {
       "parser": "babel-eslint"
+    },
+    "rules": {
+      "vue/require-v-for-key": "warning"
     }
   },
   "postcss": {

@@ -1,38 +1,15 @@
 <template>
   <div id="FORM">
     <div class="form2">
-      <div class="form">
+      <div class="form" v-bind:key="key" v-for="(value, key) in this.form">
         <div class="text">
-          <p class="item-01-01">{{ form.Name }}</p>
+          <p class="item-01-01">{{ key }}</p>
         </div>
         <div class="item-01">
-          <input class="item-01-02" type="text" name="" id="" />
+          <input class="item-01-02" type="text"/>
         </div>
       </div>
-      <div class="form">
-        <div class="text">
-          <p>{{ form.Phone }}</p>
-        </div>
-        <div class="item-01">
-          <input class="item-01-02" type="text" name="" id="" />
-        </div>
-      </div>
-      <div class="form">
-        <div class="text">
-          <p>{{ form.Address }}</p>
-        </div>
-        <div class="item-01">
-          <input class="item-01-02" type="text" name="" id="" />
-        </div>
-      </div>
-      <div class="form">
-        <div class="text">
-          <p>{{ form.ID }}</p>
-        </div>
-        <div class="item-01">
-          <input class="item-01-02" type="text" name="" id="" />
-        </div>
-      </div>
+
       <div class="form">
         <div class="text">
           <p>Gender:</p>
@@ -43,17 +20,19 @@
         </div>
       </div>
     </div>
+    
     <div id="image">
       <img src="http://35.198.247.39/images/car.jpg" alt="" />
       <label for="file"><i class="fas fa-file-upload"></i></label>
       <input style="display:none" id="file" type="file" />
     </div>
+
     <div class="button">
       <button id="submit-btn" class="submit" type="submit" value="submit">
         Send
       </button>
       <button id="reset-btn" class="reset" type="reset" value="reset">
-        Cancle
+        Cancel
       </button>
     </div>
   </div>
@@ -61,7 +40,7 @@
 
 <script>
 export default {
-  name: "HelloWorld",
+  name: "Form",
   props: {
     msg: String
   },
@@ -71,7 +50,7 @@ export default {
         Name: "Name : ",
         Address: "Address : ",
         Phone: "Contact Number : ",
-        ID: "Citizen ID : "
+        ID: "Social ID : "
       }
     };
   }
@@ -79,7 +58,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="css">
+<style scoped lang="scss">
 input.item {
   margin-left: 50px;
 }
