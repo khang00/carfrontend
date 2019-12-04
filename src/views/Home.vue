@@ -1,4 +1,4 @@
-<template v-if="this.cars" >
+<template v-if="this.cars">
   <div class="car-display">
     <h2 class="heading">Caree</h2>
     <div class="search">
@@ -15,7 +15,11 @@
       <div class="feature-wrapper">
         <div class="feature">
           <div class="big-car">
-            <car v-on:rent="rentCar(event, car.id)" class="car" v-bind:car="this.cars[0]" />
+            <car
+              v-on:rent="rentCar(event, 1)"
+              class="car"
+              v-bind:car="this.cars[0]"
+            />
           </div>
           <div class="small-cars">
             <car
@@ -89,8 +93,7 @@ export default {
       this.carClones = [];
     },
     rentCar: function(event, id) {
-      /* eslint-disable no-console */
-      console.log(this.cars[id]);
+      this.$router.push({ name: "RentCar", params: { carId: id } });
     }
   },
   mounted: function() {
@@ -147,13 +150,14 @@ export default {
     justify-content: center;
   }
 
-  #feature, #recent {
+  #feature,
+  #recent {
     margin-bottom: 40px;
     h2 {
       margin-top: 0;
     }
   }
-  
+
   .feature-wrapper {
     display: flex;
     width: 100%;
