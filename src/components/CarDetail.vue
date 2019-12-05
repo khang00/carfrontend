@@ -104,7 +104,7 @@ p {
 #car-detail {
   display: flex;
   width: 100%;
-  filter: drop-shadow(3px 3px 25px rgba(0, 0, 0, 0.361));
+  /* filter: drop-shadow(3px 3px 25px rgba(0, 0, 0, 0.361)); */
 }
 .car-display {
   display: flex;
@@ -137,7 +137,7 @@ p {
 .side-image-button {
   width: 7.5%;
   height: 90%;
-  border: solid 1.5px;
+  border: solid 1px grey;
   background: white;
   border-radius: 10px;
   font-size: 20px;
@@ -154,9 +154,9 @@ p {
   margin-left: 0px;
 }
 #car-model {
-  font-size: 50px;
-  font-weight: 900;
-  margin-bottom: 10px;
+  font-size: 35px;
+  font-weight: 700;
+  margin: 0 0 10px 0;
 }
 #car-location,
 #car-price,

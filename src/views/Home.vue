@@ -1,4 +1,4 @@
-<template v-if="this.cars">
+<template>
   <div class="car-display">
     <h2 class="heading">Caree</h2>
     <div class="search">
@@ -61,7 +61,7 @@ export default {
     return {};
   },
   computed: {
-    rule: function() {
+    filterRule: function() {
       return this.$store.getters.getCarFilterRule;
     },
     cars: function() {
@@ -127,6 +127,7 @@ export default {
   .heading {
     text-align: center;
     font-size: 70px;
+    margin: 30px;
   }
 
   .search {

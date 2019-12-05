@@ -3,6 +3,7 @@
     <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/RentCar">Rent Car</router-link>
+      <router-link to="/asd">asd</router-link>
     </div> -->
     <router-view/>
   </div>

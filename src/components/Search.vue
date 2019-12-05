@@ -37,12 +37,17 @@ export default {
       else this.fontWeight = "fontWeight: 600";
     },
     updateInput: function() {
+      this.$router.push("/");
       this.$store.commit('setCarSearchText', this.input);
     }
   },
   mounted: function() {
-    var searchInput = document.getElementById("search-input");
-    searchInput.value = "";
+    // var searchInput = document.getElementById("search-input");
+    // searchInput.value = "";
+    this.input = this.$store.getters.getCarSearchText;
+    if(this.input != '') {
+      this.searchFocus();
+    }
   }
 };
 </script>

@@ -40,6 +40,7 @@ export default {
       this.dropBoxes.forEach(dropBox => {
         filterOutput[dropBox.title] = dropBox.selected;
       });
+      this.$router.push("/");
       this.$store.commit("setCarFilterRule", filterOutput);
     },
     cancel: function() {
