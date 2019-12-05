@@ -44,10 +44,12 @@ export default {
       this.$store.commit("setCarFilterRule", filterOutput);
     },
     cancel: function() {
+      var filterOutput = {};
       this.dropBoxes.forEach(dropBox => {
-        dropBox.selected = '';
-        this.filter();
+        dropBox.selected = "";
+        filterOutput[dropBox.title] = "";
       });
+      this.$store.commit("setCarFilterRule", filterOutput);
     }
   }
 };

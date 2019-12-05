@@ -31,7 +31,7 @@
     </div>
     <div class="car-inform">
       <p id="car-model">{{ car.model }}</p>
-      <hr />
+      <hr/>
       <p id="car-location">
         <strong>Location:</strong>
         {{ car.location }}
@@ -104,12 +104,10 @@ p {
 #car-detail {
   display: flex;
   width: 100%;
-  /* filter: drop-shadow(3px 3px 25px rgba(0, 0, 0, 0.361)); */
 }
 .car-display {
   display: flex;
   flex-direction: column;
-  height: 800px;
   width: 60%;
 }
 .big-image {
@@ -142,7 +140,10 @@ p {
   border-radius: 10px;
   font-size: 20px;
 }
-
+hr {
+  background: black;
+  border: solid 1px black;
+}
 .car-inform {
   width: 40%;
   padding-left: 4%;

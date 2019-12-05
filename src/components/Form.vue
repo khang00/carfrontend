@@ -85,13 +85,14 @@ export default {
 
       .form-item {
         display: flex;
+        align-items: center;
         width: 100%;
-        height: 37px;
         white-space: nowrap;
 
         p {
           margin-right: 3%;
-          height: 100%;
+          font-weight: 500;
+          font-size: 18px;
         }
 
         input {
@@ -100,6 +101,8 @@ export default {
           border-right-style: none;
           border-bottom-style: ridge;
           border-top-style: none;
+          font-family: montserrat;
+          font-size: 18px;
         }
 
         .radio {
@@ -114,6 +117,9 @@ export default {
 
     #image {
       display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       width: 40%;
 
       i.fas.fa-file-upload {
@@ -121,7 +127,11 @@ export default {
       }
 
       img {
-        border-radius: 50px;
+        border-radius: 50%;
+        height: 10vw;
+        width: 10vw;
+        object-fit: none;
+        margin: 0 0 20px 0;
       }
     }
   }

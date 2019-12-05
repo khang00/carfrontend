@@ -1,6 +1,6 @@
 <template>
   <div class="rent-car">
-    <h2 class="heading">Caree</h2>
+    <h2 class="heading" v-on:click="backHome">Caree</h2>
     <div class="search">
       <search />
       <i class="fas fa-sliders-h slider" v-on:click="toggleFilter"></i>
@@ -9,8 +9,9 @@
     <div id="car-filter">
       <car-filter v-bind:dropBoxes="dropBoxList" />
     </div>
+
     <div class="car-detail-wrapper">
-      <car-detail v-bind:car="car" />
+      <car-detail v-bind:car="currCar" />
     </div>
     <div class="form-car-wrapper">
       <car-form v-on:request="requestCar" />
@@ -43,12 +44,15 @@ export default {
     },
     carSearchText: function() {
       return this.$store.getters.getCarSearchText;
+    },
+    carId: function() {
+      return this.$route.params.carId - 1;
+    },
+    currCar: function() {
+      return this.$store.getters.getCars[this.carId];
     }
   },
   methods: {
-    getCar: function(carIndex) {
-      return this.$store.getters.getCars[carIndex];
-    },
     requestCar: function(renter) {
       axios({
         method: "POST",
@@ -78,15 +82,18 @@ export default {
       }
       this.carClones = [];
     },
+    backHome: function() {
+      this.$router.push("/");
+    }
   },
   
-  created: function() {
-    this.car = this.getCar(this.$route.params.carId - 1);
-  },
-  beforeRouteUpdate: function(to, from, next) {
-    this.car = this.getCar(to.params.carId - 1);
-    next();
-  }
+  // created: function() {
+  //   this.car = this.getCar(this.$route.params.carId - 1);
+  // },
+  // beforeRouteUpdate: function(to, from, next) {
+  //   this.car = this.getCar(to.params.carId - 1);
+  //   next();
+  
 };
 </script>
 
@@ -125,6 +132,7 @@ export default {
   .car-detail-wrapper {
     width: 80%;
     display: flex;
+    margin: 40px 0 0 0;
   }
 
   .form-car-wrapper {
@@ -135,6 +143,7 @@ export default {
     text-align: center;
     font-size: 70px;
     margin: 30px;
+    cursor: pointer;
   }
 }
 </style>
