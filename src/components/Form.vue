@@ -1,37 +1,36 @@
 <template>
   <div id="form">
+    <p>{{formInfo}}</p>
     <h2 class="title">{{ this.title }}</h2>
     <div class="form-wrapper">
       <div class="form-object">
-        <div
-          class="form-item"
-          v-bind:key="key"
-          v-for="(value, key) in this.renter"
-        >
-          <p>{{ key }} :</p>
-          <input type="text" />
+        <div class="form-item" v-bind:key="info.title" v-for="info in formInfo">
+          <p>{{ info.title }} :</p>
+          <input type="text" v-model="info.value" />
         </div>
 
         <div class="form-item">
           <p>Gender :</p>
           <div class="radio">
-            <input type="radio" name="Gender" value="Male" />
+            <input type="radio" name="Gender" value="Male" v-model="gender" />
             <p>Male</p>
-            <input type="radio" name="Gender" value="Female" />
+            <input type="radio" name="Gender" value="Female" v-model="gender" />
             <p>Female</p>
           </div>
         </div>
       </div>
 
       <div id="image">
-        <img src="http://35.198.247.39/images/car.jpg" alt="" />
-        <label for="file"><i class="fas fa-file-upload"></i></label>
-        <input style="display:none" id="file" type="file" />
+        <img v-bind:src="customerImageURL" alt />
+        <label for="file">
+          <i class="fas fa-camera" id="upload"></i>
+        </label>
+        <input style="display:none" id="file" ref="myFile" type="file" @change="loadImage" />
       </div>
     </div>
     <div class="button">
-      <button class="submit" v-on:click="submit">Submit</button>
-      <button class="cancel">Cancel</button>
+      <button id="submit" v-on:click="submit">Submit</button>
+      <button id="cancel">Cancel</button>
     </div>
   </div>
 </template>
@@ -43,7 +42,8 @@ export default {
     title: {
       type: String,
       default: "Request Car"
-    }
+    },
+    formInfo: Object
   },
   data: function() {
     return {
@@ -52,12 +52,19 @@ export default {
         Address: "",
         Phone: "",
         "Date Of Birth": ""
-      }
+      },
+      gender: "",
+      customerImageURL: ""
     };
   },
   methods: {
     submit: function() {
-      this.$emit('request', this.renter);
+      var result = this.formInfo.slice();
+      result.push({title: "Gender", value: this.gender});
+      this.$emit("request", this.formInfo);
+    },
+    loadImage: function() {
+      this.customerImageURL = URL.createObjectURL(this.$refs.myFile.files[0]);
     }
   }
 };
@@ -128,14 +135,18 @@ export default {
 
       img {
         border-radius: 50%;
-        height: 10vw;
-        width: 10vw;
-        object-fit: none;
+        border: solid 0.5px grey;
+        height: 12vw;
+        width: 12vw;
+        object-fit: contain;
         margin: 0 0 20px 0;
       }
     }
   }
-
+  #upload {
+    cursor: pointer;
+    font-size: 20px;
+  }
   .button {
     display: flex;
     margin: 2% 0%;
@@ -145,17 +156,25 @@ export default {
     button {
       padding: 1% 2%;
       border-radius: 10px;
+      font-family: Montserrat;
     }
 
-    .submit {
-      margin-right: 1%;
-      border-style: none;
-    }
-
-    .cancel {
-      margin-left: 1%;
+    button#cancel {
       background: white;
-      border-style: solid;
+      border: solid 1px rgba(0, 0, 0, 0.161);
+      color: rgba(0, 0, 0, 0.65);
+      font-weight: 600;
+      margin: 0 10px;
+    }
+
+    button#submit {
+      border-style: none;
+      padding: 11px 25px;
+      font-weight: 600;
+      margin: 0 10px;
+    }
+    button:hover {
+      cursor: pointer;
     }
   }
 }

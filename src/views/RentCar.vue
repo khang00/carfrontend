@@ -14,7 +14,7 @@
       <car-detail v-bind:car="currCar" />
     </div>
     <div class="form-car-wrapper">
-      <car-form v-on:request="requestCar" />
+      <car-form v-on:request="requestCar" v-bind:formInfo="formInfo"/>
     </div>
   </div>
 </template>
@@ -35,7 +35,33 @@ export default {
   },
   data: function() {
     return {
-      car: {}
+      car: {},
+      formInfo: [
+        {
+          title: 'Name',
+          value: ''
+        },
+        {
+          title: 'Address',
+          value: ''
+        },
+        {
+          title: 'Contact number',
+          value: ''
+        },
+        {
+          title: 'Date of birth',
+          value: ''
+        },
+        {
+          title: 'Day rent',
+          value: ''
+        },
+        {
+          title: 'Day return',
+          value: ''
+        },
+      ]
     };
   },
   computed: {
