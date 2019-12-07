@@ -9,12 +9,15 @@
     <div id="car-filter">
       <car-filter v-bind:dropBoxes="dropBoxList" />
     </div>
-
     <div class="car-detail-wrapper">
       <car-detail v-bind:car="currCar" />
     </div>
     <div class="form-car-wrapper">
-      <car-form v-on:request="requestCar" v-bind:formInfo="formInfo"/>
+      <car-form v-bind:formInfo="formInfo" />
+      <div class="button">
+        <button id="submit" v-on:click="requestCar">Submit</button>
+        <button id="cancel">Cancel</button>
+      </div>
     </div>
   </div>
 </template>
@@ -36,32 +39,14 @@ export default {
   data: function() {
     return {
       car: {},
-      formInfo: [
-        {
-          title: 'Name',
-          value: ''
-        },
-        {
-          title: 'Address',
-          value: ''
-        },
-        {
-          title: 'Contact number',
-          value: ''
-        },
-        {
-          title: 'Date of birth',
-          value: ''
-        },
-        {
-          title: 'Day rent',
-          value: ''
-        },
-        {
-          title: 'Day return',
-          value: ''
-        },
-      ]
+      formInfo: {
+        Name: "",
+        Address: "",
+        "Contact number": "",
+        "Date of birth": "",
+        "Day rent": "",
+        "Day return": ""
+        }
     };
   },
   computed: {
@@ -111,15 +96,14 @@ export default {
     backHome: function() {
       this.$router.push("/");
     }
-  },
-  
+  }
+
   // created: function() {
   //   this.car = this.getCar(this.$route.params.carId - 1);
   // },
   // beforeRouteUpdate: function(to, from, next) {
   //   this.car = this.getCar(to.params.carId - 1);
   //   next();
-  
 };
 </script>
 
@@ -164,12 +148,43 @@ export default {
   .form-car-wrapper {
     width: 80%;
     display: flex;
+    flex-direction: column;
   }
   .heading {
     text-align: center;
     font-size: 70px;
     margin: 30px;
     cursor: pointer;
+  }
+  .button {
+    display: flex;
+    margin: 2% 0%;
+    width: 100%;
+    justify-content: center;
+
+    button {
+      padding: 1% 2%;
+      border-radius: 10px;
+      font-family: Montserrat;
+    }
+
+    button#cancel {
+      background: white;
+      border: solid 1px rgba(0, 0, 0, 0.161);
+      color: rgba(0, 0, 0, 0.65);
+      font-weight: 600;
+      margin: 0 10px;
+    }
+
+    button#submit {
+      border-style: none;
+      padding: 11px 25px;
+      font-weight: 600;
+      margin: 0 10px;
+    }
+    button:hover {
+      cursor: pointer;
+    }
   }
 }
 </style>

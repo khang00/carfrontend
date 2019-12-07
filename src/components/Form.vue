@@ -1,20 +1,19 @@
 <template>
   <div id="form">
-    <p>{{formInfo}}</p>
     <h2 class="title">{{ this.title }}</h2>
     <div class="form-wrapper">
       <div class="form-object">
-        <div class="form-item" v-bind:key="info.title" v-for="info in formInfo">
-          <p>{{ info.title }} :</p>
-          <input type="text" v-model="info.value" />
+        <div class="form-item" v-bind:key="info" v-for="info in formInfo">
+          <p>{{ info }} :</p>
+          <input type="text" v-model="formInfo[info]" />
         </div>
 
         <div class="form-item">
           <p>Gender :</p>
           <div class="radio">
-            <input type="radio" name="Gender" value="Male" v-model="gender" />
+            <input type="radio" name="Gender" value="Male" v-model="formInfo['Gender']" />
             <p>Male</p>
-            <input type="radio" name="Gender" value="Female" v-model="gender" />
+            <input type="radio" name="Gender" value="Female" v-model="formInfo['Gender']" />
             <p>Female</p>
           </div>
         </div>
@@ -28,10 +27,7 @@
         <input style="display:none" id="file" ref="myFile" type="file" @change="loadImage" />
       </div>
     </div>
-    <div class="button">
-      <button id="submit" v-on:click="submit">Submit</button>
-      <button id="cancel">Cancel</button>
-    </div>
+    
   </div>
 </template>
 
@@ -58,13 +54,14 @@ export default {
     };
   },
   methods: {
-    submit: function() {
-      var result = this.formInfo.slice();
-      result.push({title: "Gender", value: this.gender});
-      this.$emit("request", this.formInfo);
-    },
+    // submit: function() {
+    //   var result = this.formInfo.slice();
+    //   result.push({title: "Gender", value: this.gender});
+    //   result.push({title: "Image", value: this.customerImageURL});
+    //   this.$emit("request", this.formInfo);
+    // },
     loadImage: function() {
-      this.customerImageURL = URL.createObjectURL(this.$refs.myFile.files[0]);
+      this.formInfo = URL.createObjectURL(this.$refs.myFile.files[0]);
     }
   }
 };
@@ -147,35 +144,6 @@ export default {
     cursor: pointer;
     font-size: 20px;
   }
-  .button {
-    display: flex;
-    margin: 2% 0%;
-    width: 100%;
-    justify-content: center;
-
-    button {
-      padding: 1% 2%;
-      border-radius: 10px;
-      font-family: Montserrat;
-    }
-
-    button#cancel {
-      background: white;
-      border: solid 1px rgba(0, 0, 0, 0.161);
-      color: rgba(0, 0, 0, 0.65);
-      font-weight: 600;
-      margin: 0 10px;
-    }
-
-    button#submit {
-      border-style: none;
-      padding: 11px 25px;
-      font-weight: 600;
-      margin: 0 10px;
-    }
-    button:hover {
-      cursor: pointer;
-    }
-  }
+  
 }
 </style>
