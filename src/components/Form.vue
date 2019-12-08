@@ -1,26 +1,27 @@
 <template>
   <div id="form">
+    {{formInfo}}
     <h2 class="title">{{ this.title }}</h2>
     <div class="form-wrapper">
       <div class="form-object">
-        <div class="form-item" v-bind:key="info" v-for="info in formInfo">
-          <p>{{ info }} :</p>
-          <input type="text" v-model="formInfo[info]" />
+        <div class="form-item" v-bind:key="info.title" v-for="info in formInfo.text">
+          <p>{{ info.title }} :</p>
+          <input type="text" v-model="info.value" />
         </div>
 
-        <div class="form-item">
-          <p>Gender :</p>
+        <div class="form-item" v-bind:key="info.title" v-for="info in formInfo.radio">
+          <p>{{info.title}} :</p>
           <div class="radio">
-            <input type="radio" name="Gender" value="Male" v-model="formInfo['Gender']" />
-            <p>Male</p>
-            <input type="radio" name="Gender" value="Female" v-model="formInfo['Gender']" />
-            <p>Female</p>
+            <div class="choice" v-bind:key="choice" v-for="choice in info.choice">
+            <input type="radio" v-bind:name="info.title" v-bind:value="choice" v-model="info.value" />
+            <p>{{choice}}</p>
+            </div>
           </div>
         </div>
       </div>
 
       <div id="image">
-        <img v-bind:src="customerImageURL" alt />
+        <img v-bind:src="formInfo.image[formInfo.image.length - 1]" alt />
         <label for="file">
           <i class="fas fa-camera" id="upload"></i>
         </label>
@@ -61,7 +62,7 @@ export default {
     //   this.$emit("request", this.formInfo);
     // },
     loadImage: function() {
-      this.formInfo = URL.createObjectURL(this.$refs.myFile.files[0]);
+      this.formInfo.image.push(URL.createObjectURL(this.$refs.myFile.files[0]));
     }
   }
 };
@@ -143,6 +144,11 @@ export default {
   #upload {
     cursor: pointer;
     font-size: 20px;
+  }
+  .choice {
+    display: flex;
+    margin: 0 5px;
+    align-items: center;
   }
   
 }

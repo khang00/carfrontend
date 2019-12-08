@@ -40,13 +40,46 @@ export default {
     return {
       car: {},
       formInfo: {
-        Name: "",
-        Address: "",
-        "Contact number": "",
-        "Date of birth": "",
-        "Day rent": "",
-        "Day return": ""
-        }
+        text: [
+          {
+            title: "Name",
+            value: ""
+          },
+          {
+            title: "Address",
+            value: ""
+          },
+          {
+            title: "Contact number",
+            value: ""
+          },
+          {
+            title: "Date of birth",
+            value: ""
+          },
+          {
+            title: "Day rent",
+            value: ""
+          },
+          {
+            title: "Day return",
+            value: ""
+          }
+        ],
+        radio: [
+          {
+            title: "Gender",
+            choice: [
+              "Male",
+              "Female"
+            ],
+            value: ""
+          }
+        ],
+        image: [
+          
+        ]
+      }
     };
   },
   computed: {
