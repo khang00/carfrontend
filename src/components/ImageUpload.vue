@@ -59,37 +59,35 @@ export default {
       this.num += files.length;
     },
     sendImage() {
-      let formdata = new FormData();
-      let id = new Blob(["1"], {
-        type: "text/plain"
-      });
-
-      let type = new Blob(["car"], {
-        type: "text/plain"
-      });
-
-      for (var i = 0; i < this.apps.length; i++) {
-        let file = this.apps[i];
-        formdata.append("files", file, file.name);
-      }
-      /* eslint-disable no-console */
-      console.log(formdata.getAll("files"));
-
-      formdata.append("id", id);
-
-      console.log(formdata.get("id"));
-
-      formdata.append("type", type);
-
-      console.log(formdata.get("type"));
+      let car = {
+        owner: {
+          name: "Khang",
+          phone: "0913654535",
+          address: "Ho chi minh",
+          dob: "1575784785",
+          gender: "male",
+          totalImage: 1
+        },
+        car: {
+          model: "2019 Base 4MATIC",
+          brand: "honda",
+          color: "red",
+          price: 1000000,
+          location: "da nang",
+          seat: 12,
+          description: "best car ever",
+          totalImage: 3
+        }
+      };
+      
       axios({
         method: "POST",
-        url: "http://35.198.247.39/image/image",
-        data: formdata,
+        url: "http://35.198.247.39/CarRentalManagement/manager/car",
+        data: car,
         config: {
           headers: {
             // set content type
-            "content-type": undefined,
+            "content-type": "application/json",
             charset: "utf-8",
             "Access-Control-Allow-Origin": "*"
           }
@@ -98,6 +96,54 @@ export default {
         .then(response => {
           /* eslint-disable no-console */
           console.log(response);
+          let formdata = new FormData();
+          let id = new Blob([response.data.id], {
+            type: "text/plain"
+          });
+
+          let type = new Blob(["car"], {
+            type: "text/plain"
+          });
+
+          for (var i = 0; i < this.apps.length; i++) {
+            let file = this.apps[i];
+            formdata.append("files", file, file.name);
+          }
+          /* eslint-disable no-console */
+          console.log(formdata.getAll("files"));
+
+          formdata.append("id", id);
+
+          console.log(formdata.get("id"));
+
+          formdata.append("type", type);
+
+          console.log(formdata.get("type"));
+          axios({
+            method: "POST",
+            url: "http://35.198.247.39/image/image",
+            data: formdata,
+            config: {
+              headers: {
+                // set content type
+                "content-type": undefined,
+                charset: "utf-8",
+                "Access-Control-Allow-Origin": "*"
+              }
+            }
+          })
+            .then(response => {
+              /* eslint-disable no-console */
+              console.log(response);
+            })
+            .catch(error => {
+              /* eslint-disable no-console */
+              console.log(error);
+              console.log(error.response.data);
+              console.log(error.response.status);
+              console.log(error.response.headers);
+              console.log(error.message);
+            });
         })
         .catch(error => {
           /* eslint-disable no-console */
