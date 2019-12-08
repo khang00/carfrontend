@@ -2,10 +2,9 @@
   <div class="filter-item">
     <div class="filter-wrapper">
       <h2>Filter</h2>
-
       <div class="select">
-        <select v-for="dropBox in dropBoxes" v-bind:key="dropBox.title">
-          <option v-bind:value="dropBox.title">{{dropBox.title}}</option>
+        <select v-for="dropBox in dropBoxes" v-model="dropBox.selected" v-bind:key="dropBox.title">
+          <option disabled value>{{dropBox.title}}</option>
           <option
             v-bind:key="option"
             v-bind:value="option"
@@ -13,7 +12,6 @@
           >{{option}}</option>
         </select>
       </div>
-
       <form action class="choose">
         <div v-for="title in checkBoxes" v-bind:key="title">
           <input type="checkbox" v-bind:value="title" />
@@ -23,8 +21,8 @@
     </div>
 
     <div class="button">
-      <button id="submit">Filter</button>
-      <button id="cancel" onclick="window.location.href = '../components/HelloWorld.vue';">Cancel</button>
+      <button id="submit" v-on:click="filter">Filter</button>
+      <button id="cancel" v-on:click="cancel">Cancel</button>
     </div>
   </div>
 </template>
@@ -32,7 +30,28 @@
 <script>
 export default {
   name: "CarFilter",
-  props: ["dropBoxes", "checkBoxes"]
+  data: function() {
+    return {};
+  },
+  props: ["dropBoxes", "checkBoxes"],
+  methods: {
+    filter: function() {
+      var filterOutput = {};
+      this.dropBoxes.forEach(dropBox => {
+        filterOutput[dropBox.title] = dropBox.selected;
+      });
+      this.$router.push("/");
+      this.$store.commit("setCarFilterRule", filterOutput);
+    },
+    cancel: function() {
+      var filterOutput = {};
+      this.dropBoxes.forEach(dropBox => {
+        dropBox.selected = "";
+        filterOutput[dropBox.title] = "";
+      });
+      this.$store.commit("setCarFilterRule", filterOutput);
+    }
+  }
 };
 </script>
 

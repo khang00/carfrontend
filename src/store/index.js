@@ -8,7 +8,8 @@ const carsModule = {
     cars: [],
     displayCars: [],
     carAttributes: [],
-    carSearchText: ''
+    carSearchText: '',
+    carFilterRule: []
   },
   getters: {
     getCars: (state) => {
@@ -22,6 +23,9 @@ const carsModule = {
     },
     getCarSearchText: (state) => {
       return state.carSearchText;
+    },
+    getCarFilterRule: (state) => {
+      return state.carFilterRule;
     }
   },
   mutations: {
@@ -42,6 +46,25 @@ const carsModule = {
       });
       state.carSearchText = text;
       state.displayCars = updateDisplayCars;
+    },
+    setCarFilterRule(state, rule) {
+      var updateDisplayCars = [];
+      state.cars.forEach(car => {
+          if((rule.brand == '' || rule.brand == car.brand) &&
+             (rule.location == '' || rule.location == car.location) &&
+             (rule.color == '' || rule.color == car.color) &&
+             (rule.seat == '' || rule.seat == car.seat)) {
+               updateDisplayCars.push(car);
+             }
+      });
+      if(rule.price == 'desc') {
+        updateDisplayCars.sort((a,b)=>(a.price < b.price ? 1 : -1));
+      }
+      updateDisplayCars.sort((a,b)=>(a.price < b.price ? -1 : 1));
+      state.carFilterRule = rule;
+      state.displayCars = updateDisplayCars;
+      
+      
     }
   },
   actions: {
@@ -81,7 +104,7 @@ const carsModule = {
         });
         var outputAttributes = [];
         for (var i in attributes) {
-          outputAttributes.push({ title: i, options: attributes[i] });
+          outputAttributes.push({ title: i, options: attributes[i], selected: '' });
         }
         context.commit("setCarAttributes", outputAttributes);
       });

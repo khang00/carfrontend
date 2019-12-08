@@ -1,38 +1,34 @@
 <template>
   <div id="form">
+    {{formInfo}}
     <h2 class="title">{{ this.title }}</h2>
     <div class="form-wrapper">
       <div class="form-object">
-        <div
-          class="form-item"
-          v-bind:key="key"
-          v-for="(value, key) in this.renter"
-        >
-          <p>{{ key }} :</p>
-          <input type="text" />
+        <div class="form-item" v-bind:key="info.title" v-for="info in formInfo.text">
+          <p>{{ info.title }} :</p>
+          <input type="text" v-model="info.value" />
         </div>
 
-        <div class="form-item">
-          <p>Gender :</p>
+        <div class="form-item" v-bind:key="info.title" v-for="info in formInfo.radio">
+          <p>{{info.title}} :</p>
           <div class="radio">
-            <input type="radio" name="Gender" value="Male" />
-            <p>Male</p>
-            <input type="radio" name="Gender" value="Female" />
-            <p>Female</p>
+            <div class="choice" v-bind:key="choice" v-for="choice in info.choice">
+            <input type="radio" v-bind:name="info.title" v-bind:value="choice" v-model="info.value" />
+            <p>{{choice}}</p>
+            </div>
           </div>
         </div>
       </div>
 
       <div id="image">
-        <img src="http://35.198.247.39/images/car.jpg" alt="" />
-        <label for="file"><i class="fas fa-file-upload"></i></label>
-        <input style="display:none" id="file" type="file" />
+        <img v-bind:src="formInfo.image[formInfo.image.length - 1]" alt />
+        <label for="file">
+          <i class="fas fa-camera" id="upload"></i>
+        </label>
+        <input style="display:none" id="file" ref="myFile" type="file" @change="loadImage" />
       </div>
     </div>
-    <div class="button">
-      <button class="submit" v-on:click="submit">Submit</button>
-      <button class="cancel">Cancel</button>
-    </div>
+    
   </div>
 </template>
 
@@ -43,7 +39,8 @@ export default {
     title: {
       type: String,
       default: "Request Car"
-    }
+    },
+    formInfo: Object
   },
   data: function() {
     return {
@@ -52,12 +49,20 @@ export default {
         Address: "",
         Phone: "",
         "Date Of Birth": ""
-      }
+      },
+      gender: "",
+      customerImageURL: ""
     };
   },
   methods: {
-    submit: function() {
-      this.$emit('request', this.renter);
+    // submit: function() {
+    //   var result = this.formInfo.slice();
+    //   result.push({title: "Gender", value: this.gender});
+    //   result.push({title: "Image", value: this.customerImageURL});
+    //   this.$emit("request", this.formInfo);
+    // },
+    loadImage: function() {
+      this.formInfo.image.push(URL.createObjectURL(this.$refs.myFile.files[0]));
     }
   }
 };
@@ -85,13 +90,14 @@ export default {
 
       .form-item {
         display: flex;
+        align-items: center;
         width: 100%;
-        height: 37px;
         white-space: nowrap;
 
         p {
           margin-right: 3%;
-          height: 100%;
+          font-weight: 500;
+          font-size: 18px;
         }
 
         input {
@@ -100,6 +106,8 @@ export default {
           border-right-style: none;
           border-bottom-style: ridge;
           border-top-style: none;
+          font-family: montserrat;
+          font-size: 18px;
         }
 
         .radio {
@@ -114,6 +122,9 @@ export default {
 
     #image {
       display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       width: 40%;
 
       i.fas.fa-file-upload {
@@ -121,32 +132,24 @@ export default {
       }
 
       img {
-        border-radius: 50px;
+        border-radius: 50%;
+        border: solid 0.5px grey;
+        height: 12vw;
+        width: 12vw;
+        object-fit: contain;
+        margin: 0 0 20px 0;
       }
     }
   }
-
-  .button {
-    display: flex;
-    margin: 2% 0%;
-    width: 100%;
-    justify-content: center;
-
-    button {
-      padding: 1% 2%;
-      border-radius: 10px;
-    }
-
-    .submit {
-      margin-right: 1%;
-      border-style: none;
-    }
-
-    .cancel {
-      margin-left: 1%;
-      background: white;
-      border-style: solid;
-    }
+  #upload {
+    cursor: pointer;
+    font-size: 20px;
   }
+  .choice {
+    display: flex;
+    margin: 0 5px;
+    align-items: center;
+  }
+  
 }
 </style>

@@ -1,4 +1,4 @@
-<template v-if="this.cars">
+<template>
   <div class="car-display">
     <h2 class="heading">Caree</h2>
     <div class="search">
@@ -61,6 +61,9 @@ export default {
     return {};
   },
   computed: {
+    filterRule: function() {
+      return this.$store.getters.getCarFilterRule;
+    },
     cars: function() {
       return this.$store.getters.getCars;
     },
@@ -71,7 +74,15 @@ export default {
       return this.$store.getters.getCarSearchText;
     },
     isSearchDisplay: function() {
-      return this.$store.getters.getCarSearchText.length > 0;
+      var ruleCheck = false;
+      var rules = this.$store.getters.getCarFilterRule;
+      for(var rule in rules) {
+        if(rules[rule] != '') {
+          ruleCheck = true;
+          break;
+        }
+      }
+      return this.$store.getters.getCarSearchText.length > 0 || ruleCheck;
     },
     dropBoxList: function() {
       return this.$store.getters.getCarAttributes;
@@ -116,6 +127,7 @@ export default {
   .heading {
     text-align: center;
     font-size: 70px;
+    margin: 30px;
   }
 
   .search {
