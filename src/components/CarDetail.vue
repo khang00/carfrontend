@@ -61,7 +61,7 @@ export default {
   name: "CarDetail",
   data: function() {
     return {
-      images: [this.car.imageUrl, this.car.imageUrl, this.car.imageUrl],
+      images: this.car.ImageUrls,
       classes: ["border", "no-border", "no-border"],
 
       currImage: "",

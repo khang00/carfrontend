@@ -70,11 +70,11 @@ export default {
         },
         car: {
           model: "2019 Base 4MATIC",
-          brand: "honda",
+          brand: "Toyota",
           color: "red",
           price: 1000000,
-          location: "da nang",
-          seat: 12,
+          location: "Da Nang",
+          seat: 8,
           description: "best car ever",
           totalImage: 3
         }
