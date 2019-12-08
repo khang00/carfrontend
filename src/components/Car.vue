@@ -5,7 +5,7 @@
       class="car-item-row"
       v-bind:style="{ width: width + 'vw', height: height + 'vh' }"
     >
-      <img id="image-row" alt="carimg" v-bind:src="car.imageUrl" />
+      <img id="image-row" alt="carimg" v-bind:src="car.imageUrls[0]" />
 
       <div id="content">
         <div class="line">
@@ -39,7 +39,7 @@
       class="car-item-col"
       v-bind:style="{ width: width + 'vw', height: height + 'vh' }"
     >
-      <img id="image-col" alt="carimg" v-bind:src="car.imageUrl" />
+      <img id="image-col" alt="carimg" v-bind:src="car.imageUrls[0]" />
 
       <div id="content">
         <div class="line">
