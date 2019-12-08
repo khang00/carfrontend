@@ -9,9 +9,11 @@
     <div id="car-filter">
       <car-filter v-bind:dropBoxes="dropBoxList" />
     </div>
+
     <div class="car-detail-wrapper">
       <car-detail v-bind:car="currCar" />
     </div>
+    
     <div class="form-car-wrapper">
       <car-form v-bind:formInfo="formInfo" imageSize="12" />
       <div class="button">
