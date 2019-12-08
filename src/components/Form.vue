@@ -1,6 +1,5 @@
 <template>
   <div id="form">
-    {{formInfo}}
     <h2 class="title">{{ this.title }}</h2>
     <div class="form-wrapper">
       <div class="form-object">
@@ -13,22 +12,28 @@
           <p>{{info.title}} :</p>
           <div class="radio">
             <div class="choice" v-bind:key="choice" v-for="choice in info.choice">
-            <input type="radio" v-bind:name="info.title" v-bind:value="choice" v-model="info.value" />
-            <p>{{choice}}</p>
+              <input
+                type="radio"
+                v-bind:name="info.title"
+                v-bind:value="choice"
+                v-model="info.value"
+              />
+              <p>{{choice}}</p>
             </div>
           </div>
         </div>
       </div>
-
+      {{img}}
       <div id="image">
-        <img v-bind:src="formInfo.image[formInfo.image.length - 1]" alt />
+        <div class="image-display">
+          <img v-bind:src="image" v-for="image in formInfo.image" v-bind:key="image" v-bind:style="{ width: imageSize + 'vw', height: imageSize + 'vw' }" alt />
+        </div>
         <label for="file">
           <i class="fas fa-camera" id="upload"></i>
         </label>
-        <input style="display:none" id="file" ref="myFile" type="file" @change="loadImage" />
+        <input style="display:none" id="file" ref="myFile" type="file" @change="loadImage" multiple />
       </div>
     </div>
-    
   </div>
 </template>
 
@@ -40,19 +45,16 @@ export default {
       type: String,
       default: "Request Car"
     },
-    formInfo: Object
+    formInfo: Object,
+    imageSize: String
   },
   data: function() {
     return {
-      renter: {
-        Name: "",
-        Address: "",
-        Phone: "",
-        "Date Of Birth": ""
-      },
-      gender: "",
-      customerImageURL: ""
+      imageCount: 0
     };
+  },
+  computed: {
+    
   },
   methods: {
     // submit: function() {
@@ -62,7 +64,11 @@ export default {
     //   this.$emit("request", this.formInfo);
     // },
     loadImage: function() {
-      this.formInfo.image.push(URL.createObjectURL(this.$refs.myFile.files[0]));
+      var images = this.$refs.myFile.files;
+      for (var i = 0; i < images.length; i++) {
+        this.formInfo.image.unshift(URL.createObjectURL(this.$refs.myFile.files[i]));
+        this.formInfo.image.pop();
+      }
     }
   }
 };
@@ -132,12 +138,12 @@ export default {
       }
 
       img {
-        border-radius: 50%;
+        border-radius: 5%;
         border: solid 0.5px grey;
-        height: 12vw;
-        width: 12vw;
+        height: 8vw;
+        width: 8vw;
         object-fit: contain;
-        margin: 0 0 20px 0;
+        margin: 10px;
       }
     }
   }
@@ -150,6 +156,5 @@ export default {
     margin: 0 5px;
     align-items: center;
   }
-  
 }
 </style>

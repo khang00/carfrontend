@@ -13,7 +13,7 @@
       <car-detail v-bind:car="currCar" />
     </div>
     <div class="form-car-wrapper">
-      <car-form v-bind:formInfo="formInfo" />
+      <car-form v-bind:formInfo="formInfo" imageSize="12" />
       <div class="button">
         <button id="submit" v-on:click="requestCar">Submit</button>
         <button id="cancel">Cancel</button>
@@ -77,7 +77,7 @@ export default {
           }
         ],
         image: [
-          
+          ""
         ]
       }
     };
