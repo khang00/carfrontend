@@ -40,31 +40,47 @@ const carsModule = {
     },
     setCarSearchText(state, text) {
       var updateDisplayCars = [];
+      var rule = state.carFilterRule;
+
       state.cars.forEach(car => {
-        if (car.model.search(text) != -1)
+        if ((car.model.search(text) != -1) &&
+          ((rule.Brand == '' || rule.Brand == car.brand) &&
+            (rule.Location == '' || rule.Location == car.location) &&
+            (rule.Color == '' || rule.Color == car.color) &&
+            (rule.Seat == '' || rule.Seat == car.seat)))
           updateDisplayCars.push(car);
       });
       state.carSearchText = text;
+      
+      if (rule.price == 'desc') {
+        updateDisplayCars.sort((a, b) => (a.price < b.price ? 1 : -1));
+      } else {
+      updateDisplayCars.sort((a, b) => (a.price < b.price ? -1 : 1));
+      }
+
       state.displayCars = updateDisplayCars;
     },
     setCarFilterRule(state, rule) {
       var updateDisplayCars = [];
+      var text = state.carSearchText;
+
       state.cars.forEach(car => {
-          if((rule.brand == '' || rule.brand == car.brand) &&
-             (rule.location == '' || rule.location == car.location) &&
-             (rule.color == '' || rule.color == car.color) &&
-             (rule.seat == '' || rule.seat == car.seat)) {
-               updateDisplayCars.push(car);
-             }
+        if ((car.model.search(text) != -1) &&
+          ((rule.Brand == '' || rule.Brand == car.brand) &&
+            (rule.Location == '' || rule.Location == car.location) &&
+            (rule.Color == '' || rule.Color == car.color) &&
+            (rule.Seat == '' || rule.Seat == car.seat)))
+          updateDisplayCars.push(car);
       });
-      if(rule.price == 'desc') {
-        updateDisplayCars.sort((a,b)=>(a.price < b.price ? 1 : -1));
-      }
-      updateDisplayCars.sort((a,b)=>(a.price < b.price ? -1 : 1));
       state.carFilterRule = rule;
+      
+      if (rule.price == 'desc') {
+        updateDisplayCars.sort((a, b) => (a.price < b.price ? 1 : -1));
+      } else {
+      updateDisplayCars.sort((a, b) => (a.price < b.price ? -1 : 1));
+      }
+
       state.displayCars = updateDisplayCars;
-      
-      
     }
   },
   actions: {
