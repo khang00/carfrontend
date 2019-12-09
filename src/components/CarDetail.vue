@@ -5,7 +5,6 @@
         <img v-bind:src="currImage" />
       </div>
       <div class="slide-image">
-        <p style="display: none;">{{ imageRun }}</p>
         <button class="side-image-button" v-on:click="backimage">
           <i class="fas fa-chevron-left"></i>
         </button>
@@ -61,12 +60,21 @@ export default {
   name: "CarDetail",
   data: function() {
     return {
-      images: this.car.ImageUrls,
       classes: ["border", "no-border", "no-border"],
 
-      currImage: "",
+      // currImage: this.car.imageUrls[0],
       imageRun: 0
     };
+  },
+  computed: {
+    images: function() {
+      return this.car.imageUrls;
+    },
+    currImage: function() {
+      if(this.images == undefined)
+        return null;
+      return this.images[this.imageRun];
+    }
   },
   props: {
     car: {
@@ -92,7 +100,7 @@ export default {
     }
   },
   mounted: function() {
-    this.currImage = this.images[0];
+    //this.currImage = this.car.imageUrls[0];
   }
 };
 </script>

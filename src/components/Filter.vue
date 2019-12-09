@@ -4,7 +4,7 @@
       <h2>Filter</h2>
       <div class="select">
         <select v-for="dropBox in dropBoxes" v-model="dropBox.selected" v-bind:key="dropBox.title">
-          <option disabled value>{{dropBox.title}}</option>
+          <option value="">{{dropBox.title}}</option>
           <option
             v-bind:key="option"
             v-bind:value="option"

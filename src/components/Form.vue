@@ -23,7 +23,6 @@
           </div>
         </div>
       </div>
-      {{img}}
       <div id="image">
         <div class="image-display">
           <img v-bind:src="image" v-for="image in formInfo.image" v-bind:key="image" v-bind:style="{ width: imageSize + 'vw', height: imageSize + 'vw' }" alt />
@@ -50,19 +49,13 @@ export default {
   },
   data: function() {
     return {
-      imageCount: 0
+      
     };
   },
   computed: {
     
   },
   methods: {
-    // submit: function() {
-    //   var result = this.formInfo.slice();
-    //   result.push({title: "Gender", value: this.gender});
-    //   result.push({title: "Image", value: this.customerImageURL});
-    //   this.$emit("request", this.formInfo);
-    // },
     loadImage: function() {
       var images = this.$refs.myFile.files;
       for (var i = 0; i < images.length; i++) {
@@ -138,7 +131,7 @@ export default {
       }
 
       img {
-        border-radius: 5%;
+        border-radius: 10%;
         border: solid 0.5px grey;
         height: 8vw;
         width: 8vw;

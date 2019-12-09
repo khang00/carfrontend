@@ -15,7 +15,7 @@
     </div>
     
     <div class="form-car-wrapper">
-      <car-form v-bind:formInfo="formInfo" imageSize="12" />
+      <car-form v-bind:formInfo="formInfo" imageSize="15" />
       <div class="button">
         <button id="submit" v-on:click="requestCar">Submit</button>
         <button id="cancel">Cancel</button>
@@ -40,7 +40,6 @@ export default {
   },
   data: function() {
     return {
-      car: {},
       formInfo: {
         text: [
           {
@@ -95,7 +94,7 @@ export default {
       return this.$route.params.carId - 1;
     },
     currCar: function() {
-      return this.$store.getters.getCars[this.carId];
+      return this.$store.getters.getCars[this.$route.params.carId - 1];
     }
   },
   methods: {
@@ -177,7 +176,7 @@ export default {
   .car-detail-wrapper {
     width: 80%;
     display: flex;
-    margin: 40px 0 0 0;
+    margin: 40px 0 40px 0;
   }
 
   .form-car-wrapper {
