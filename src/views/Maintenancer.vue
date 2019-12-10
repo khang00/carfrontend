@@ -1,31 +1,55 @@
 <template>
   <div class="maintenancer">
-    <h2 class="heading">Caree</h2>
-    <div class="employee-tag-wrapper">
-      <employee-tag v-bind:employee="employeeInfo"/>
+    <div class="employee-frame-wrapper">
+      <employee-frame v-bind:navInfo="navInfo" v-bind:employeeInfo="employeeInfo" />
     </div>
-    <div class="nav-wrapper">
-      <nav-bar v-bind:navInfo="navInfo" />
+    <div v-if="navInfo[0].selected" class="checking-cars">
+      <p>checkingcars</p>
     </div>
+    <div v-if="navInfo[1].selected" class="maintain-cars">
+      <p>maintaincars</p>
+    </div>
+    
   </div>
 </template>
 
 <script>
-import EmployeeTag from "./../components/EmployeeTag.vue";
-import Nav from "./../components/Nav.vue";
+import EmployeeFrame from "./../components/EmployeeFrame.vue";
 export default {
   components: {
-    "employee-tag": EmployeeTag,
-    "nav-bar": Nav
+    "employee-frame": EmployeeFrame
   },
   data: function() {
     return {
-      navInfo: ["Checking Cars", "Maintain Cars"],
+      navInfo: [
+        {
+          title: "Checking Cars",
+          selected: true
+        },
+        {
+          title: "Maintain Cars",
+          selected: false
+        }
+      ],
       employeeInfo: {
-          name: "Huy Ha",
-          position: "Manager"
-      }
+        name: "Huy Ha",
+        position: "Manager",
+        image: ""
+      },
+      a: "a"
     };
+  },
+  computed: {
+    currPage: function() {
+      this.navInfo.forEach(page => {
+        if(page.selected)
+          return page;
+      });
+      return null;
+    }
+  },
+  methods: {
+
   }
 };
 </script>
@@ -34,27 +58,14 @@ export default {
 .maintenancer {
   position: relative;
   width: 80%;
-  height: 100%;
   font-family: "Montserrat";
   display: flex;
   flex-direction: column;
   padding: 0 10%;
 
-  h2 {
-    font-size: 40px;
-  }
-  .employee-tag-wrapper {
-    width: 100%;
+  .employee-frame-wrapper {
     display: flex;
     justify-content: center;
-    margin: 0 0 40px 0;
-  }
-  .heading {
-    text-align: center;
-    font-size: 70px;
-    margin: 30px;
-  }
-  .nav-wrapper {
   }
 }
 </style>

@@ -13,8 +13,9 @@
     <div class="car-detail-wrapper">
       <car-detail v-bind:car="currCar" />
     </div>
-    
+
     <div class="form-car-wrapper">
+      {{formInfo}}
       <car-form v-bind:formInfo="formInfo" imageSize="15" />
       <div class="button">
         <button id="submit" v-on:click="requestCar">Submit</button>
@@ -70,16 +71,14 @@ export default {
         radio: [
           {
             title: "Gender",
-            choice: [
-              "Male",
-              "Female"
-            ],
+            choice: ["Male", "Female"],
             value: ""
           }
         ],
-        image: [
-          ""
-        ]
+        image: {
+          raw: [null],
+          url: [""]
+        }
       }
     };
   },
@@ -91,20 +90,35 @@ export default {
       return this.$store.getters.getCarSearchText;
     },
     carId: function() {
-      return this.$route.params.carId - 1;
+      return this.$route.params.carId;
     },
     currCar: function() {
-      return this.$store.getters.getCars[this.$route.params.carId - 1];
+      var select = null;
+      this.$store.getters.getCars.forEach(car => {
+        if(car.id == this.carId) {
+          select = car;
+        }
+      });
+      return select;
     }
   },
   methods: {
-    requestCar: function(renter) {
+    requestCar: function() {
       axios({
         method: "POST",
         url: "http://35.198.247.39/CarRentalManagement/renting/car",
         data: {
-          car: { id: this.car.id },
-          renter: renter
+          car: { id: this.carId },
+          renter: {
+            name: this.formInfo.text[0].value,
+            address: this.formInfo.text[1].value,
+            phone: this.formInfo.text[2].value,
+            dob: new Date(2018, 11, 24)//this.formInfo.text[3].value
+          },
+          expectedDate: {
+            rent: this.formInfo.text[4].value,
+            return: this.formInfo.text[5].value
+          }
         },
         config: {
           headers: {
@@ -114,9 +128,66 @@ export default {
           }
         }
       }).then(response => {
+
+        let formdata = new FormData();
+        let id = new Blob([response.data.id], {
+          type: "text/plain"
+        });
+
+        let type = new Blob(["user"], {
+          type: "text/plain"
+        });
+
+        this.formInfo.image.raw.forEach(image => {
+          formdata.append("files", image, image.name)
+        });
+        // for (var i = 0; i < this.apps.length; i++) {
+        //   let file = this.apps[i];
+        //   formdata.append("files", file, file.name);
+        // }
         /* eslint-disable no-console */
-        console.log(response);
-      });
+        console.log(formdata.getAll("files"));
+
+        formdata.append("id", id);
+
+        console.log(formdata.get("id"));
+
+        formdata.append("type", type);
+
+        console.log(formdata.get("type"));
+        axios({
+          method: "POST",
+          url: "http://35.198.247.39/image/image",
+          data: formdata,
+          config: {
+            headers: {
+              // set content type
+              "content-type": undefined,
+              charset: "utf-8",
+              "Access-Control-Allow-Origin": "*"
+            }
+          }
+        })
+          .then(response => {
+            /* eslint-disable no-console */
+            console.log(response);
+          })
+          .catch(error => {
+            /* eslint-disable no-console */
+            console.log(error);
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+            console.log(error.message);
+          });
+      }).catch(error => {
+            /* eslint-disable no-console */
+            console.log(error);
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+            console.log(error.message);
+          });;
     },
     toggleFilter: function() {
       var x = document.getElementById("car-filter");

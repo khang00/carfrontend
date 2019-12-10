@@ -25,7 +25,7 @@
       </div>
       <div id="image">
         <div class="image-display">
-          <img v-bind:src="image" v-for="image in formInfo.image" v-bind:key="image" v-bind:style="{ width: imageSize + 'vw', height: imageSize + 'vw' }" alt />
+          <img v-bind:src="image" v-for="image in formInfo.image.url" v-bind:key="image" v-bind:style="{ width: imageSize + 'vw', height: imageSize + 'vw' }" alt />
         </div>
         <label for="file">
           <i class="fas fa-camera" id="upload"></i>
@@ -59,8 +59,10 @@ export default {
     loadImage: function() {
       var images = this.$refs.myFile.files;
       for (var i = 0; i < images.length; i++) {
-        this.formInfo.image.unshift(URL.createObjectURL(this.$refs.myFile.files[i]));
-        this.formInfo.image.pop();
+        this.formInfo.image.raw.unshift(this.$refs.myFile.files[i]);
+        this.formInfo.image.raw.pop();
+        this.formInfo.image.url.unshift(URL.createObjectURL(this.$refs.myFile.files[i]));
+        this.formInfo.image.url.pop();
       }
     }
   }

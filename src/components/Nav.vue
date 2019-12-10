@@ -1,11 +1,11 @@
 <template>
   <div class="nav">
     <p v-bind:style="{ display: 'none' }">{{test}}</p>
-    <div class="nav-link" v-for="(link, index) in navInfo" v-bind:key="link" v-on:click="onClick(index)">
-      <p v-if="choose[index]">
-        <strong>{{link}}</strong>
+    <div class="nav-link" v-for="(link, index) in navInfo" v-bind:key="link.title" v-on:click="onClick(index, link)">
+      <p v-if="link.selected">
+        <strong>{{link.title}}</strong>
       </p>
-      <p v-else>{{link}}</p>
+      <p v-else>{{link.title}}</p>
     </div>
   </div>
 </template>
@@ -28,10 +28,9 @@ export default {
     this.choose = array;
   },
   methods: {
-      onClick: function(index) {
-          this.test = index;
-          this.choose[this.currLink] = false;
-          this.choose[index] = true;
+      onClick: function(index, link) {
+          link.selected = true;
+          this.navInfo[this.currLink].selected = false;
           this.currLink = index;
       }
   }
@@ -43,7 +42,7 @@ export default {
   display: flex;
   box-shadow: 3px 3px 25px rgba(0, 0, 0, 0.161);
   .nav-link {
-      width: 200px;
+      width: 180px;
       text-align: center;   
       cursor: pointer;
   }

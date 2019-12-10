@@ -16,7 +16,7 @@
         <div class="feature">
           <div class="big-car">
             <car
-              v-on:rent="rentCar(event, 1)"
+              v-on:rent="rentCar(event, this.cars[0])"
               class="car"
               v-bind:car="this.cars[0]"
             />
@@ -58,7 +58,9 @@ import CarFilter from "../components/Filter.vue";
 export default {
   name: "Home",
   data: function() {
-    return {};
+    return {
+      
+    };
   },
   computed: {
     filterRule: function() {
