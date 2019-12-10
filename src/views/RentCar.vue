@@ -15,7 +15,6 @@
     </div>
 
     <div class="form-car-wrapper">
-      {{formInfo}}
       <car-form v-bind:formInfo="formInfo" imageSize="15" />
       <div class="button">
         <button id="submit" v-on:click="requestCar">Submit</button>
@@ -92,14 +91,11 @@ export default {
     carId: function() {
       return this.$route.params.carId;
     },
+    passCar: function() {
+      return this.$route.params.car;
+    },
     currCar: function() {
-      var select = null;
-      this.$store.getters.getCars.forEach(car => {
-        if(car.id == this.carId) {
-          select = car;
-        }
-      });
-      return select;
+      return this.$route.params.car;
     }
   },
   methods: {
@@ -108,7 +104,7 @@ export default {
         method: "POST",
         url: "http://35.198.247.39/CarRentalManagement/renting/car",
         data: {
-          car: { id: this.carId },
+          car: { id: this.currCar.id },
           renter: {
             name: this.formInfo.text[0].value,
             address: this.formInfo.text[1].value,

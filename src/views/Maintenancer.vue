@@ -4,7 +4,9 @@
       <employee-frame v-bind:navInfo="navInfo" v-bind:employeeInfo="employeeInfo" />
     </div>
     <div v-if="navInfo[0].selected" class="checking-cars">
-      <p>checkingcars</p>
+      <div class="checking-car">
+        <car v-bind:radius="radius"/>
+      </div>
     </div>
     <div v-if="navInfo[1].selected" class="maintain-cars">
       <p>maintaincars</p>
@@ -15,12 +17,20 @@
 
 <script>
 import EmployeeFrame from "./../components/EmployeeFrame.vue";
+import Car from "./../components/Car.vue";
 export default {
   components: {
-    "employee-frame": EmployeeFrame
+    "employee-frame": EmployeeFrame,
+    car: Car
   },
   data: function() {
     return {
+      radius: [
+        '9px',
+        '0',
+        '0',
+        '9px'
+      ],
       navInfo: [
         {
           title: "Checking Cars",
@@ -66,6 +76,10 @@ export default {
   .employee-frame-wrapper {
     display: flex;
     justify-content: center;
+    width: 100%
+  }
+  .title {
+    font-size: 40px;
   }
 }
 </style>

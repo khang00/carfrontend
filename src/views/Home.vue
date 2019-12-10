@@ -16,14 +16,14 @@
         <div class="feature">
           <div class="big-car">
             <car
-              v-on:rent="rentCar(event, this.cars[0])"
+              v-on:rent="rentCar(this.cars[0].id, this.car[0])"
               class="car"
               v-bind:car="this.cars[0]"
             />
           </div>
           <div class="small-cars">
             <car
-              v-on:rent="rentCar(event, car.id)"
+              v-on:rent="rentCar(car.id, car)"
               v-for="car in cars.slice(1, 4)"
               v-bind:key="car.id"
               v-bind:car="car"
@@ -40,7 +40,7 @@
       <p v-if="displayCars.length == 0">No car found</p>
       <div class="recent">
         <car
-          v-on:rent="rentCar(event, car.id)"
+          v-on:rent="rentCar(car.id, car)"
           v-for="car in displayCars"
           v-bind:key="car.id"
           v-bind:car="car"
@@ -105,8 +105,8 @@ export default {
       }
       this.carClones = [];
     },
-    rentCar: function(event, id) {
-      this.$router.push({ name: "RentCar", params: { carId: id } });
+    rentCar: function(id, car) {
+      this.$router.push({ name: "RentCar", params: { carId: id, car: car } });
     }
   }
 };

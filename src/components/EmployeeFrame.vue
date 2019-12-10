@@ -35,7 +35,7 @@ export default {
 
 <style lang="scss" scoped>
 .frame {
-  width: 70%;
+  width: 100%;
   h2 {
     font-size: 40px;
   }
@@ -51,6 +51,8 @@ export default {
     margin: 30px;
   }
   .nav-wrapper {
+    display: flex;
+    justify-content: center;
   }
 }
 </style>

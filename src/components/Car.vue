@@ -3,7 +3,7 @@
     <div
       v-if="direction == 'horizontal'"
       class="car-item-row"
-      v-bind:style="{ width: width + 'vw', height: height + 'vh' }"
+      v-bind:style="{ width: width + 'vw', height: height + 'vh', 'border-radius': radius[0]+' '+radius[1]+' '+radius[2]+' '+radius[3] }"
     >
       <img id="image-row" alt="carimg" v-bind:src="car.imageUrls[0]" />
 
@@ -95,7 +95,8 @@ export default {
     direction: {
       type: String,
       default: ''
-    }
+    },
+    radius: Array
   },
   methods: {
     rent: function(event){

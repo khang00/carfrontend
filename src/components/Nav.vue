@@ -19,7 +19,6 @@ export default {
     return {
       choose: null,
       currLink: 0,
-      test: "a"
     };
   },
   mounted: function() {
@@ -41,6 +40,8 @@ export default {
 .nav {
   display: flex;
   box-shadow: 3px 3px 25px rgba(0, 0, 0, 0.161);
+  width: 70%;
+  padding: 0 3vw;
   .nav-link {
       width: 180px;
       text-align: center;   
