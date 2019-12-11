@@ -28,8 +28,8 @@ export default {
   },
   methods: {
       onClick: function(index, link) {
-          link.selected = true;
           this.navInfo[this.currLink].selected = false;
+          link.selected = true;
           this.currLink = index;
       }
   }
@@ -39,7 +39,8 @@ export default {
 <style lang="scss" scoped>
 .nav {
   display: flex;
-  box-shadow: 3px 3px 25px rgba(0, 0, 0, 0.161);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.261);
+  border-radius: 0%;
   width: 70%;
   padding: 0 3vw;
   .nav-link {

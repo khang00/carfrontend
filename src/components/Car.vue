@@ -3,9 +3,43 @@
     <div
       v-if="direction == 'horizontal'"
       class="car-item-row"
-      v-bind:style="{ width: width + 'vw', height: height + 'vh', 'border-radius': radius[0]+' '+radius[1]+' '+radius[2]+' '+radius[3] }"
+      v-bind:style="{ width: width + 'vw', height: height + 'vh' }"
     >
       <img id="image-row" alt="carimg" v-bind:src="car.imageUrls[0]" />
+
+      <div id="content">
+        <div class="line">
+          <p id="brand">{{ car.brand }}</p>
+          <div v-if="role == 'admin'" id="box-status">
+            <p id="status">{{ car.status }}</p>
+          </div>
+        </div>
+        <p id="model">{{ car.model }}</p>
+        <div class="inform-line">
+          <i class="fas fa-search-location"></i>
+          <p id="location">{{ car.location }}</p>
+        </div>
+        <div class="inform-line">
+          <i class="fas fa-tag"></i>
+          <p id="price">{{ car.price }}</p>
+        </div>
+
+        <div class="line">
+          <div class="inform-line">
+            <i class="fas fa-user-check"></i>
+            <p id="seat">{{ car.seat + " seats" }}</p>
+          </div>
+          <i v-if="role == 'admin'" id="edit" class="fas fa-edit"></i>
+        </div>
+      </div>
+    </div>
+    
+    <div
+      v-else-if="role == 'maintenancer'"
+      class="car-item-col car-item-maintenancer"
+      v-bind:style="{ width: width + 'vw', height: height + 'vh' }"
+    >
+      <img id="image-col" class="image-col-maintenancer" alt="carimg" v-bind:src="car.imageUrls[0]" />
 
       <div id="content">
         <div class="line">
@@ -125,6 +159,10 @@ input {
   //width: 25vw;
   box-shadow: 3px 3px 25px rgba(0, 0, 0, 0.161);
 }
+.car-item-maintenancer {
+  box-shadow: none;
+  border-radius: 9px 0 0 9px;
+}
 .car {
   width: 100%;
 }
@@ -160,6 +198,9 @@ input {
 #image-col {
   width: 100%;
   border-radius: 10px 10px 0px 0px;
+}
+.image-col-maintenancer {
+  border-radius: 10px 0px 0px 0px !important;
 }
 #image-row {
   height: 158px;

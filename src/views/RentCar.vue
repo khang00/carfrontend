@@ -78,7 +78,8 @@ export default {
           raw: [null],
           url: [""]
         }
-      }
+      },
+      currCar: null
     };
   },
   computed: {
@@ -91,12 +92,15 @@ export default {
     carId: function() {
       return this.$route.params.carId;
     },
-    passCar: function() {
-      return this.$route.params.car;
-    },
-    currCar: function() {
-      return this.$route.params.car;
-    }
+    // passCar: function() {
+    //   return this.$route.params.car;
+    // },
+    // currCar: function() {
+    //   return this.$route.params.car;
+    // }
+  },
+  created: function() {
+    this.currCar = this.$route.params.car;
   },
   methods: {
     requestCar: function() {
