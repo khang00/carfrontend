@@ -1,6 +1,5 @@
 <template>
   <div class="nav">
-    <p v-bind:style="{ display: 'none' }">{{test}}</p>
     <div class="nav-link" v-for="(link, index) in navInfo" v-bind:key="link.title" v-on:click="onClick(index, link)">
       <p v-if="link.selected">
         <strong>{{link.title}}</strong>

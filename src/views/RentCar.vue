@@ -98,7 +98,7 @@ export default {
     //this.currCar = this.$route.params.car;
     axios({
         method: "GET",
-        url: "http://35.198.247.39/CarRentalManagement/renting/car?id=3",
+        url: "http://35.198.247.39/CarRentalManagement/renting/car?id=" + this.carId,
         config: {
           headers: {
             // set content type
