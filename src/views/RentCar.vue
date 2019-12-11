@@ -92,15 +92,24 @@ export default {
     carId: function() {
       return this.$route.params.carId;
     },
-    // passCar: function() {
-    //   return this.$route.params.car;
-    // },
-    // currCar: function() {
-    //   return this.$route.params.car;
-    // }
+    
   },
   created: function() {
-    this.currCar = this.$route.params.car;
+    //this.currCar = this.$route.params.car;
+    axios({
+        method: "GET",
+        url: "http://35.198.247.39/CarRentalManagement/renting/car?id=3",
+        config: {
+          headers: {
+            // set content type
+            "content-type": "application/json",
+            charset: "utf-8",
+            "Access-Control-Allow-Origin": "*"
+          }
+        }
+      }).then(response => {
+        this.currCar = response.data;
+      })
   },
   methods: {
     requestCar: function() {

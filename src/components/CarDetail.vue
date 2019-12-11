@@ -1,6 +1,9 @@
 <template>
+
   <div id="car-detail">
+    
     <div class="car-display">
+      <p  hidden>{{car.id}}</p>
       <div class="big-image">
         <img v-bind:src="currImage" />
       </div>
