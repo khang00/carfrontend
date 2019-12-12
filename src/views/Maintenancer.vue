@@ -69,7 +69,6 @@ export default {
         price: "30000000",
         imageUrls: ["http://35.198.247.39/image/image/?id=4&index=0&type=car"]
       },
-      radius: ["9px", "0", "0", "9px"],
       navInfo: [
         {
           title: "Checking Cars",
@@ -84,8 +83,7 @@ export default {
         name: "Huy Ha",
         position: "Manager",
         image: ""
-      },
-      a: "a"
+      }
     };
   },
   computed: {

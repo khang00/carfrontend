@@ -5,6 +5,7 @@ import RentCar from "../views/RentCar.vue"
 import Maintenancer from "../views/Maintenancer.vue"
 import Login from "../views/Login.vue"
 import Saler from "../views/Saler.vue"
+import Manager from "../views/Manager.vue"
 
 Vue.use(VueRouter);
 
@@ -33,6 +34,11 @@ const routes = [
     path: "/Saler",
     name: "Saler",
     component: Saler
+  },
+  {
+    path: "/Manager",
+    name: "Manager",
+    component: Manager
   }
 ];
 

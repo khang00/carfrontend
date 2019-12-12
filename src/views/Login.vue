@@ -1,23 +1,35 @@
 <template>
-  <div class="login-wrapper">
-    <div class="login">
-      <h1>Login</h1>
-      <p>Username</p>
-      <input type="text" />
-      <p>Password</p>
-      <input type="text" />
-      <button>Login</button>
+  <div class="router">
+    <div class="login-wrapper" v-if="inLogin">
+      <div class="login">
+        <h1>Login</h1>
+        <p>Username</p>
+        <input type="text" />
+        <p>Password</p>
+        <input type="text" />
+        <button>Login</button>
+      </div>
     </div>
+  
+    <maintenancer v-if="role == 'maintenancer'"/>
+    <saler v-if="role == 'saler'"/>
+    <manager v-if="role == 'manager'"/>
+    
   </div>
 </template>
 
 <script>
+import Maintenancer from "./Maintenancer.vue"
 export default {
   data: function() {
     return {
       username: "",
-      password: ""
+      password: "",
+      role: "",
     };
+  },
+  components: {
+    maintenancer: Maintenancer
   }
 };
 </script>
