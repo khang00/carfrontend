@@ -6,7 +6,7 @@
     <div id="emp-info">
       <p style="color:red">{{employee.name}}</p>
       <div id="info">
-        <h3>{{employee.position}}</h3>
+        <h3>{{employee.role}}</h3>
         <i class="fas fa-chevron-down"></i>
       </div>
     </div>

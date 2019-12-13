@@ -4,32 +4,62 @@
       <div class="login">
         <h1>Login</h1>
         <p>Username</p>
-        <input type="text" />
+        <input type="text" v-model="username" />
         <p>Password</p>
-        <input type="text" />
-        <button>Login</button>
+        <input type="text" v-model="password" />
+        <button v-on:click="login">Login</button>
       </div>
     </div>
-  
-    <maintenancer v-if="role == 'maintenancer'"/>
-    <saler v-if="role == 'saler'"/>
-    <manager v-if="role == 'manager'"/>
-    
+    <maintenancer v-if="this.role == 'maintainer'" v-bind:employeeInfo="employeeInfo"/>
+    <saler v-if="role == 'saler'" v-bind:employeeInfo="employeeInfo"/>
+    <manager v-if="role == 'manager'" />
   </div>
 </template>
 
 <script>
-import Maintenancer from "./Maintenancer.vue"
+import Maintenancer from "./Maintenancer.vue";
+import Saler from "./Saler.vue"
+import axios from "axios";
+
 export default {
   data: function() {
     return {
       username: "",
       password: "",
       role: "",
+      inLogin: true,
+
+      employeeInfo: null,
     };
   },
   components: {
-    maintenancer: Maintenancer
+    maintenancer: Maintenancer,
+    saler: Saler
+
+  },
+  methods: {
+    login: function() {
+      axios({
+        method: "POST",
+        url: "http://35.198.247.39/CarRentalManagement/authentic/employee",
+        data: {
+          account: this.username,
+          pass: this.password
+        },
+        config: {
+          headers: {
+            // set content type
+            "content-type": "application/json",
+            charset: "utf-8",
+            "Access-Control-Allow-Origin": "*"
+          }
+        }
+      }).then(response => {
+        this.employeeInfo = response.data;
+        this.role = response.data.role;
+        this.inLogin = false;
+      });
+    }
   }
 };
 </script>
@@ -50,10 +80,13 @@ export default {
     }
     p {
       margin-bottom: 5px;
-      font-size: 18px;
+      font-size: 25px;
     }
     input {
       font-family: Montserrat;
+      width: 100%;
+      font-size: 18px;
+      padding: 7px;
     }
     button {
       border-radius: 10px;
@@ -62,7 +95,8 @@ export default {
       border-style: none;
       padding: 11px 25px;
       cursor: pointer;
-      margin-top: 20px;
+      width: 60%;
+      margin: 40px 20%;
     }
   }
 }

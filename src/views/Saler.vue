@@ -35,6 +35,9 @@ export default {
     "request-car": RequestCar,
     "approve-car": ApproveCar
   },
+  props: {
+    employeeInfo: String
+  },
   data: function() {
     return {
       navInfo: [
@@ -47,11 +50,11 @@ export default {
           selected: false
         }
       ],
-      employeeInfo: {
-        name: "Huy Ha",
-        position: "Manager",
-        image: ""
-      },
+      // employeeInfo: {
+      //   name: "Huy Ha",
+      //   position: "Manager",
+      //   image: ""
+      // },
       car: {
         brand: "Huyndai",
         model: "SantaFe",

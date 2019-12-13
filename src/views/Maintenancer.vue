@@ -1,5 +1,6 @@
 <template>
   <div class="maintenancer">
+      {{employeeInfo}}
     <div class="employee-frame-wrapper">
       <employee-frame v-bind:navInfo="navInfo" v-bind:employeeInfo="employeeInfo" />
     </div>
@@ -58,6 +59,9 @@ export default {
     "employee-frame": EmployeeFrame,
     car: Car
   },
+  props: {
+    employeeInfo: String
+  },
   data: function() {
     return {
       detail: "",
@@ -79,11 +83,11 @@ export default {
           selected: false
         }
       ],
-      employeeInfo: {
-        name: "Huy Ha",
-        position: "Manager",
-        image: ""
-      }
+      // employeeInfo: {
+      //   name: "Huy Ha",
+      //   position: "Manager",
+      //   image: ""
+      // }
     };
   },
   computed: {
