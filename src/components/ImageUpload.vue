@@ -79,7 +79,7 @@ export default {
           totalImage: 3
         }
       };
-      
+
       axios({
         method: "POST",
         url: "http://35.198.247.39/CarRentalManagement/manager/car",

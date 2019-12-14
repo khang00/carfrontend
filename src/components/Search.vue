@@ -14,7 +14,6 @@
 </template>
 
 <script>
-
 export default {
   name: "Search",
   data: function() {
@@ -24,7 +23,7 @@ export default {
       fontWeight: "fontWeight: 600"
     };
   },
-  props: ['inputText'],
+  props: ["inputText"],
   methods: {
     searchFocus: function() {
       this.placeHolder = "";
@@ -38,14 +37,14 @@ export default {
     },
     updateInput: function() {
       this.$router.push("/");
-      this.$store.commit('setCarSearchText', this.input);
+      this.$store.commit("setCarSearchText", this.input);
     }
   },
   mounted: function() {
     // var searchInput = document.getElementById("search-input");
     // searchInput.value = "";
     this.input = this.$store.getters.getCarSearchText;
-    if(this.input != '') {
+    if (this.input != "") {
       this.searchFocus();
     }
   }

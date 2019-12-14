@@ -8,23 +8,23 @@ const carsModule = {
     cars: [],
     displayCars: [],
     carAttributes: [],
-    carSearchText: '',
+    carSearchText: "",
     carFilterRule: []
   },
   getters: {
-    getCars: (state) => {
+    getCars: state => {
       return state.cars;
     },
-    getCarAttributes: (state) => {
+    getCarAttributes: state => {
       return state.carAttributes;
     },
-    getDisplayCars: (state) => {
+    getDisplayCars: state => {
       return state.displayCars;
     },
-    getCarSearchText: (state) => {
+    getCarSearchText: state => {
       return state.carSearchText;
     },
-    getCarFilterRule: (state) => {
+    getCarFilterRule: state => {
       return state.carFilterRule;
     }
   },
@@ -43,19 +43,21 @@ const carsModule = {
       var rule = state.carFilterRule;
 
       state.cars.forEach(car => {
-        if ((car.model.search(text) != -1) &&
-          ((rule.Brand == '' || rule.Brand == car.brand) &&
-            (rule.Location == '' || rule.Location == car.location) &&
-            (rule.Color == '' || rule.Color == car.color) &&
-            (rule.Seat == '' || rule.Seat == car.seat)))
+        if (
+          car.model.search(text) != -1 &&
+          (rule.Brand == "" || rule.Brand == car.brand) &&
+          (rule.Location == "" || rule.Location == car.location) &&
+          (rule.Color == "" || rule.Color == car.color) &&
+          (rule.Seat == "" || rule.Seat == car.seat)
+        )
           updateDisplayCars.push(car);
       });
       state.carSearchText = text;
-      
-      if (rule.price == 'desc') {
+
+      if (rule.price == "desc") {
         updateDisplayCars.sort((a, b) => (a.price < b.price ? 1 : -1));
       } else {
-      updateDisplayCars.sort((a, b) => (a.price < b.price ? -1 : 1));
+        updateDisplayCars.sort((a, b) => (a.price < b.price ? -1 : 1));
       }
 
       state.displayCars = updateDisplayCars;
@@ -65,19 +67,21 @@ const carsModule = {
       var text = state.carSearchText;
 
       state.cars.forEach(car => {
-        if ((car.model.search(text) != -1) &&
-          ((rule.Brand == '' || rule.Brand == car.brand) &&
-            (rule.Location == '' || rule.Location == car.location) &&
-            (rule.Color == '' || rule.Color == car.color) &&
-            (rule.Seat == '' || rule.Seat == car.seat)))
+        if (
+          car.model.search(text) != -1 &&
+          (rule.Brand == "" || rule.Brand == car.brand) &&
+          (rule.Location == "" || rule.Location == car.location) &&
+          (rule.Color == "" || rule.Color == car.color) &&
+          (rule.Seat == "" || rule.Seat == car.seat)
+        )
           updateDisplayCars.push(car);
       });
       state.carFilterRule = rule;
-      
-      if (rule.price == 'desc') {
+
+      if (rule.price == "desc") {
         updateDisplayCars.sort((a, b) => (a.price < b.price ? 1 : -1));
       } else {
-      updateDisplayCars.sort((a, b) => (a.price < b.price ? -1 : 1));
+        updateDisplayCars.sort((a, b) => (a.price < b.price ? -1 : 1));
       }
 
       state.displayCars = updateDisplayCars;
@@ -113,14 +117,17 @@ const carsModule = {
         }
       }).then(response => {
         var attributes = {};
-        (response.data).forEach(record => {
-          if (attributes[record.type] == null)
-            attributes[record.type] = [];
+        response.data.forEach(record => {
+          if (attributes[record.type] == null) attributes[record.type] = [];
           attributes[record.type].push(record.value);
         });
         var outputAttributes = [];
         for (var i in attributes) {
-          outputAttributes.push({ title: i, options: attributes[i], selected: '' });
+          outputAttributes.push({
+            title: i,
+            options: attributes[i],
+            selected: ""
+          });
         }
         context.commit("setCarAttributes", outputAttributes);
       });

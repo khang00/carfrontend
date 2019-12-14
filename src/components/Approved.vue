@@ -3,19 +3,27 @@
     <h2>Payment</h2>
     <p>
       <strong>Day rent:</strong>
-      {{requestdata.dayRent}}
+      {{ dayRent }}
     </p>
     <p>
       <strong>Day return:</strong>
-      {{requestdata.dayReturn}}
+      {{ dayReturn }}
     </p>
     <div class="button">
-      <button id="approve">Payment</button>
+      <button id="approve" v-on:click="payment">Payment</button>
     </div>
   </div>
 </template>
+
 <script>
+import axios from "axios"
 export default {
+  props: {
+    dayRent: Date,
+    dayReturn: Date,
+    contractId: String,
+    salerAccount: String
+  },
   data: function() {
     return {
       requestdata: {
@@ -23,6 +31,30 @@ export default {
         dayReturn: "30/10/2019"
       }
     };
+  },
+  methods: {
+    payment: function() {
+      axios({
+        method: "PUT",
+        url: "http://35.198.247.39/CarRentalManagement/saler/contract/payment",
+        data: {
+          contractId: this.contractId,
+          salerAccount: this.salerAccount
+        },
+        config: {
+          headers: {
+            // set content type
+            "content-type": "application/json",
+            charset: "utf-8",
+            "Access-Control-Allow-Origin": "*"
+          }
+        }
+      }).then(response => {
+        /*eslint-disable no-console*/
+        console.log(response.data);
+        this.$emit('payment');
+      });
+    }
   }
 };
 </script>
@@ -37,6 +69,9 @@ export default {
   height: 50%;
   padding: 2.5%;
   border-radius: 10px;
+  p {
+    margin: 5px 0;
+  }
   .button {
     button {
       margin: 15px 10px 0 10px;
@@ -52,6 +87,7 @@ export default {
       color: white;
       position: relative;
       bottom: 0;
+      cursor: pointer;
     }
     #cancel {
       border: solid 1px rgba(0, 0, 0, 0.161);

@@ -29,17 +29,22 @@
             <i class="fas fa-user-check"></i>
             <p id="seat">{{ car.seat + " seats" }}</p>
           </div>
-          <i v-if="role == 'admin'" id="edit" class="fas fa-edit"></i>
+          <!-- <i v-if="role == 'admin'" id="edit" class="fas fa-edit"></i> -->
         </div>
       </div>
     </div>
-    
+
     <div
       v-else-if="role == 'maintenancer'"
       class="car-item-col car-item-maintenancer"
       v-bind:style="{ width: width + 'vw', height: height + 'vh' }"
     >
-      <img id="image-col" class="image-col-maintenancer" alt="carimg" v-bind:src="car.imageUrls[0]" />
+      <img
+        id="image-col"
+        class="image-col-maintenancer"
+        alt="carimg"
+        v-bind:src="car.imageUrls[0]"
+      />
 
       <div id="content">
         <div class="line">
@@ -63,7 +68,7 @@
             <i class="fas fa-user-check"></i>
             <p id="seat">{{ car.seat + " seats" }}</p>
           </div>
-          <i v-if="role == 'admin'" id="edit" class="fas fa-edit"></i>
+          <!-- <i v-if="role == 'admin'" id="edit" class="fas fa-edit"></i> -->
         </div>
       </div>
     </div>
@@ -97,7 +102,7 @@
             <i class="fas fa-user-check"></i>
             <p id="seat">{{ car.seat + " seats" }}</p>
           </div>
-          <i v-if="role == 'admin'" id="edit" class="fas fa-edit"></i>
+          <!-- <i v-if="role == 'admin'" id="edit" class="fas fa-edit"></i> -->
         </div>
       </div>
     </div>
@@ -110,31 +115,31 @@ export default {
   props: {
     car: {
       type: Object,
-      default: function () {
+      default: function() {
         return {};
       }
     },
     role: {
       type: String,
-      default: ''
+      default: ""
     },
     width: {
       type: String,
-      default: ''
+      default: ""
     },
     height: {
       type: String,
-      default: ''
+      default: ""
     },
     direction: {
       type: String,
-      default: ''
+      default: ""
     },
     radius: Array
   },
   methods: {
-    rent: function(event){
-      this.$emit('rent', event);
+    rent: function(event) {
+      this.$emit("rent", event);
     }
   }
 };

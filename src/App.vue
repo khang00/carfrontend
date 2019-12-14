@@ -4,18 +4,18 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/Maintenancer">M</router-link>
     </div> -->
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <script>
-export default{
+export default {
   name: "App",
   mounted: function() {
     this.$store.dispatch("getCarsFromDB");
     this.$store.dispatch("getCarAttributesFromDB");
   }
-}
+};
 </script>
 >
 

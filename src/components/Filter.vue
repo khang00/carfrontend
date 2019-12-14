@@ -3,19 +3,24 @@
     <div class="filter-wrapper">
       <h2>Filter</h2>
       <div class="select">
-        <select v-for="dropBox in dropBoxes" v-model="dropBox.selected" v-bind:key="dropBox.title">
-          <option value="">{{dropBox.title}}</option>
+        <select
+          v-for="dropBox in dropBoxes"
+          v-model="dropBox.selected"
+          v-bind:key="dropBox.title"
+        >
+          <option value="">{{ dropBox.title }}</option>
           <option
             v-bind:key="option"
             v-bind:value="option"
             v-for="option in dropBox.options"
-          >{{option}}</option>
+            >{{ option }}</option
+          >
         </select>
       </div>
       <form action class="choose">
         <div v-for="title in checkBoxes" v-bind:key="title">
           <input type="checkbox" v-bind:value="title" />
-          {{title}}
+          {{ title }}
         </div>
       </form>
     </div>

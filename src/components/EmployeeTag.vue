@@ -4,10 +4,10 @@
       <img v-bind:src="employee.image" alt />
     </div>
     <div id="emp-info">
-      <p style="color:red">{{employee.name}}</p>
+      <p style="color:red">{{ employee.name }}</p>
       <div id="info">
-        <h3>{{employee.role}}</h3>
-        <i class="fas fa-chevron-down"></i>
+        <h3>{{ employee.role }}</h3>
+        <i class="fas fa-chevron-down logout" v-on:click="logout"></i>
       </div>
     </div>
   </div>
@@ -16,7 +16,12 @@
 export default {
   name: "Employee",
   props: {
-      employee: Object
+    employee: Object
+  },
+  methods: {
+    logout: function() {
+      location.reload();
+    }
   }
 };
 </script>
@@ -53,6 +58,7 @@ export default {
   margin-top: 10px;
   text-align: center;
 }
+.logout{
+  cursor: pointer;
+}
 </style>
-
- 

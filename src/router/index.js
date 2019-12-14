@@ -1,11 +1,12 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import RentCar from "../views/RentCar.vue"
-import Maintenancer from "../views/Maintenancer.vue"
-import Login from "../views/Login.vue"
-import Saler from "../views/Saler.vue"
-import Manager from "../views/Manager.vue"
+import RentCar from "../views/RentCar.vue";
+import Maintenancer from "../views/Maintenancer.vue";
+import Login from "../views/Login.vue";
+import Saler from "../views/Saler.vue";
+import Manager from "../views/Manager.vue";
+import Edit from "../views/Edit.vue"
 
 Vue.use(VueRouter);
 
@@ -39,6 +40,11 @@ const routes = [
     path: "/Manager",
     name: "Manager",
     component: Manager
+  },
+  {
+    path: "/Edit/:carId",
+    name: "edit",
+    component: Edit
   }
 ];
 

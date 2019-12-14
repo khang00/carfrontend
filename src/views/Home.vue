@@ -16,9 +16,9 @@
         <div class="feature">
           <div class="big-car">
             <car
-              v-on:rent="rentCar(this.cars[0].id, this.car[0])"
+              v-on:rent="rentCar(cars[0].id, cars[0])"
               class="car"
-              v-bind:car="this.cars[0]"
+              v-bind:car="cars[0]"
             />
           </div>
           <div class="small-cars">
@@ -58,9 +58,7 @@ import CarFilter from "../components/Filter.vue";
 export default {
   name: "Home",
   data: function() {
-    return {
-      
-    };
+    return {};
   },
   computed: {
     filterRule: function() {
@@ -78,8 +76,8 @@ export default {
     isSearchDisplay: function() {
       var ruleCheck = false;
       var rules = this.$store.getters.getCarFilterRule;
-      for(var rule in rules) {
-        if(rules[rule] != '') {
+      for (var rule in rules) {
+        if (rules[rule] != "") {
           ruleCheck = true;
           break;
         }

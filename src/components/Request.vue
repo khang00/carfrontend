@@ -3,27 +3,56 @@
     <h2>Request</h2>
     <p>
       <strong>Day rent:</strong>
-      {{requestdata.dayRent}}
+      {{ dayRent }}
     </p>
     <p>
       <strong>Day return:</strong>
-      {{requestdata.dayReturn}}
+      {{ dayReturn }}
     </p>
     <div class="button">
-      <button id="approve">Approve</button>
+      <button id="approve" v-on:click="approve">Approve</button>
       <button id="cancel">Cancel</button>
     </div>
   </div>
 </template>
+
 <script>
+import axios from "axios"
 export default {
+  props: {
+    dayRent: Date,
+    dayReturn: Date,
+    contractId: String,
+    salerAccount: String
+  },
   data: function() {
     return {
-      requestdata: {
-        dayRent: "28/07/2019",
-        dayReturn: "30/10/2019"
-      }
+      
     };
+  },
+  methods: {
+    approve: function() {
+      axios({
+        method: "PUT",
+        url: "http://35.198.247.39/CarRentalManagement/saler/contract/approve",
+        data: {
+          contractId: this.contractId,
+          salerAccount: this.salerAccount
+        },
+        config: {
+          headers: {
+            // set content type
+            "content-type": "application/json",
+            charset: "utf-8",
+            "Access-Control-Allow-Origin": "*"
+          }
+        }
+      }).then(response => {
+        /*eslint-disable no-console*/
+        console.log(response.data);
+        this.$emit('approve');
+      });
+    }
   }
 };
 </script>
@@ -38,9 +67,13 @@ export default {
   height: 50%;
   padding: 2.5%;
   border-radius: 10px;
+  p {
+    margin: 5px 0;
+  }
   .button {
     button {
       margin: 15px 10px 0 10px;
+      cursor: pointer;
     }
     #approve {
       border-style: none;

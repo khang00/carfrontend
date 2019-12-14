@@ -2,7 +2,7 @@
   <div class="frame">
     <h2 class="heading">Caree</h2>
     <div class="employee-tag-wrapper">
-      <employee-tag v-bind:employee="employeeInfo"/>
+      <employee-tag v-bind:employee="employeeInfo" />
     </div>
     <div class="nav-wrapper">
       <nav-bar v-bind:navInfo="navInfo" />
@@ -23,13 +23,9 @@ export default {
     employeeInfo: Object
   },
   data: function() {
-    return {
-      
-    };
+    return {};
   },
-  methods: {
-    
-  }
+  methods: {}
 };
 </script>
 

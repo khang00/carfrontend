@@ -1,9 +1,7 @@
 <template>
-
   <div id="car-detail">
-    
     <div class="car-display">
-      <p  hidden>{{car.id}}</p>
+      <p hidden>{{ car.id }}</p>
       <div class="big-image">
         <img v-bind:src="currImage" />
       </div>
@@ -33,7 +31,7 @@
     </div>
     <div class="car-inform">
       <p id="car-model">{{ car.model }}</p>
-      <hr/>
+      <hr />
       <p id="car-location">
         <strong>Location:</strong>
         {{ car.location }}
@@ -74,8 +72,7 @@ export default {
       return this.car.imageUrls;
     },
     currImage: function() {
-      if(this.images == undefined)
-        return null;
+      if (this.images == undefined) return null;
       return this.images[this.imageRun];
     }
   },

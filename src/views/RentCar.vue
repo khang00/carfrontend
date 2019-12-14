@@ -91,25 +91,25 @@ export default {
     },
     carId: function() {
       return this.$route.params.carId;
-    },
-    
+    }
   },
   created: function() {
     //this.currCar = this.$route.params.car;
     axios({
-        method: "GET",
-        url: "http://35.198.247.39/CarRentalManagement/renting/car?id=" + this.carId,
-        config: {
-          headers: {
-            // set content type
-            "content-type": "application/json",
-            charset: "utf-8",
-            "Access-Control-Allow-Origin": "*"
-          }
+      method: "GET",
+      url:
+        "http://35.198.247.39/CarRentalManagement/renting/car?id=" + this.carId,
+      config: {
+        headers: {
+          // set content type
+          "content-type": "application/json",
+          charset: "utf-8",
+          "Access-Control-Allow-Origin": "*"
         }
-      }).then(response => {
-        this.currCar = response.data;
-      })
+      }
+    }).then(response => {
+      this.currCar = response.data;
+    });
   },
   methods: {
     requestCar: function() {
@@ -122,12 +122,12 @@ export default {
             name: this.formInfo.text[0].value,
             address: this.formInfo.text[1].value,
             phone: this.formInfo.text[2].value,
-            dob: new Date(2018, 11, 24)//this.formInfo.text[3].value
+            dob: this.formInfo.text[3].value,
+            gender: this.formInfo.radio[0].value,
+            totalImage: 1
           },
-          expectedDate: {
-            rent: this.formInfo.text[4].value,
-            return: this.formInfo.text[5].value
-          }
+          dateRent: this.formInfo.text[4].value,
+          dateReturn: this.formInfo.text[5].value
         },
         config: {
           headers: {
@@ -136,67 +136,70 @@ export default {
             charset: "utf-8"
           }
         }
-      }).then(response => {
-
-        let formdata = new FormData();
-        let id = new Blob([response.data.id], {
-          type: "text/plain"
-        });
-
-        let type = new Blob(["user"], {
-          type: "text/plain"
-        });
-
-        this.formInfo.image.raw.forEach(image => {
-          formdata.append("files", image, image.name)
-        });
-        // for (var i = 0; i < this.apps.length; i++) {
-        //   let file = this.apps[i];
-        //   formdata.append("files", file, file.name);
-        // }
-        /* eslint-disable no-console */
-        console.log(formdata.getAll("files"));
-
-        formdata.append("id", id);
-
-        console.log(formdata.get("id"));
-
-        formdata.append("type", type);
-
-        console.log(formdata.get("type"));
-        axios({
-          method: "POST",
-          url: "http://35.198.247.39/image/image",
-          data: formdata,
-          config: {
-            headers: {
-              // set content type
-              "content-type": undefined,
-              charset: "utf-8",
-              "Access-Control-Allow-Origin": "*"
-            }
-          }
-        })
-          .then(response => {
-            /* eslint-disable no-console */
-            console.log(response);
-          })
-          .catch(error => {
-            /* eslint-disable no-console */
-            console.log(error);
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-            console.log(error.message);
+      })
+        .then(response => {
+          let formdata = new FormData();
+          let id = new Blob([response.data.id], {
+            type: "text/plain"
           });
-      }).catch(error => {
-            /* eslint-disable no-console */
-            console.log(error);
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-            console.log(error.message);
-          });;
+
+          let type = new Blob(["user"], {
+            type: "text/plain"
+          });
+
+          this.formInfo.image.raw.forEach(image => {
+            formdata.append("files", image, image.name);
+          });
+          // for (var i = 0; i < this.apps.length; i++) {
+          //   let file = this.apps[i];
+          //   formdata.append("files", file, file.name);
+          // }
+          /* eslint-disable no-console */
+          console.log(formdata.getAll("files"));
+
+          formdata.append("id", id);
+
+          console.log(formdata.get("id"));
+
+          formdata.append("type", type);
+
+          console.log(formdata.get("type"));
+          axios({
+            method: "POST",
+            url: "http://35.198.247.39/image/image",
+            data: formdata,
+            config: {
+              headers: {
+                // set content type
+                "content-type": undefined,
+                charset: "utf-8",
+                "Access-Control-Allow-Origin": "*"
+              }
+            }
+          })
+            .then(response => {
+              /* eslint-disable no-console */
+              console.log(response);
+              location.reload();
+              console.log("sent request");
+            })
+            .catch(error => {
+              /* eslint-disable no-console */
+              console.log(error);
+              console.log(error.response.data);
+              console.log(error.response.status);
+              console.log(error.response.headers);
+              console.log(error.message);
+            });
+        })
+        .catch(error => {
+          /* eslint-disable no-console */
+          console.log(error);
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+          console.log(error.message);
+        });
     },
     toggleFilter: function() {
       var x = document.getElementById("car-filter");

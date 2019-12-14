@@ -1,50 +1,55 @@
 <template>
   <div class="maintenancer">
-      {{employeeInfo}}
+    {{checkingCars}}
+    {{maintainCars}}
     <div class="employee-frame-wrapper">
       <employee-frame v-bind:navInfo="navInfo" v-bind:employeeInfo="employeeInfo" />
     </div>
+
     <div v-if="navInfo[0].selected" class="checking-cars">
-      <div class="checking-car">
+      <div class="checking-car" v-for="checkingCar in checkingCars" v-bind:key="checkingCar">
         <div class="car-wrapper">
-          <car v-bind:car="car" role="maintenancer" />
+          <car v-bind:car="checkingCar.car" role="maintenancer" />
         </div>
         <div class="color-column"></div>
         <div class="form">
           <div class="form-input">
             <div class="form-row">
-              <p>Checking details</p>
-              <textarea v-model="details" rows="4"></textarea>
+              <p>Checking Details</p>
+              <textarea v-model="checkingCar.checkingDetail" rows="4"></textarea>
             </div>
             <div class="form-row">
               <p>Expected Cost</p>
-              <input type="text" />
+              <input type="text" v-model="checkingCar.fine" />
             </div>
           </div>
-          <button>Complete</button>
+          <button
+            v-on:click="completeChecking(checkingCar.id, checkingCar.checkingDetail, checkingCar.fine)"
+          >Complete</button>
         </div>
       </div>
     </div>
+
     <div v-if="navInfo[1].selected" class="maintain-cars">
-      <div class="maintain-car">
+      <div class="maintain-car" v-for="maintainCar in maintainCars" v-bind:key="maintainCar">
         <div class="car-wrapper">
-          <car v-bind:car="car" role="maintenancer" />
+          <car v-bind:car="maintainCar.car" role="maintenancer" />
         </div>
         <div class="color-column"></div>
         <div class="form">
           <div class="form-input">
             <div class="form-row">
-              <h2>Checking details</h2>
+              <h2>Maintain Details</h2>
               <div class="detail-text">
-                <p>Something</p>
+                <textarea v-model="maintainCar.detail" rows="4"></textarea>
               </div>
             </div>
             <div class="form-row">
-              <h2>Expected Cost</h2>
-              <p>700000</p>
+              <h2>Fee</h2>
+              <input type="text" v-model="maintainCar.fee" />
             </div>
           </div>
-          <button>Complete</button>
+          <button v-on:click="completeMaintain(maintainCar.id, maintainCar.detail, maintainCar.fee)">Complete</button>
         </div>
       </div>
     </div>
@@ -54,6 +59,8 @@
 <script>
 import EmployeeFrame from "./../components/EmployeeFrame.vue";
 import Car from "./../components/Car.vue";
+import axios from "axios";
+
 export default {
   components: {
     "employee-frame": EmployeeFrame,
@@ -79,15 +86,12 @@ export default {
           selected: true
         },
         {
-          title: "Maintain Cars",
+          title: "Maintaining Cars",
           selected: false
         }
       ],
-      // employeeInfo: {
-      //   name: "Huy Ha",
-      //   position: "Manager",
-      //   image: ""
-      // }
+      checkingCars: [],
+      maintainCars: []
     };
   },
   computed: {
@@ -98,11 +102,110 @@ export default {
       return null;
     }
   },
-  methods: {}
+  methods: {
+    completeChecking: function(inputContractId, inputDetail, inputFine) {
+      axios({
+        method: "PUT",
+        url:
+          "http://35.198.247.39/CarRentalManagement/maintainer/contract/finished",
+        data: {
+          contractId: inputContractId,
+          detail: inputDetail,
+          fine: inputFine
+        },
+        config: {
+          headers: {
+            // set content type
+            "content-type": "application/json",
+            charset: "utf-8",
+            "Access-Control-Allow-Origin": "*"
+          }
+        }
+      }).then(response => {
+        /*eslint-disable no-console*/
+        console.log(response.data);
+        this.reloadCheckingCar();
+        this.reloadMaintainCar();
+      });
+    },
+    completeMaintain: function(inputContractId, inputDetail, inputFine) {
+      axios({
+        method: "PUT",
+        url:
+          "http://35.198.247.39/CarRentalManagement/maintainer/maintenance/finished",
+        data: {
+          contractId: inputContractId,
+          detail: inputDetail,
+          fine: inputFine
+        },
+        config: {
+          headers: {
+            // set content type
+            "content-type": "application/json",
+            charset: "utf-8",
+            "Access-Control-Allow-Origin": "*"
+          }
+        }
+      }).then(response => {
+        /*eslint-disable no-console*/
+        console.log(response.data);
+        this.reloadMaintainCar();
+      });
+    },
+    reloadCheckingCar: function() {
+      axios({
+        method: "GET",
+        url:
+          "http://35.198.247.39/CarRentalManagement/maintainer/contract?account=" +
+          this.employeeInfo.account,
+        data: {},
+        config: {
+          headers: {
+            // set content type
+            "content-type": "application/json",
+            charset: "utf-8",
+            "Access-Control-Allow-Origin": "*"
+          }
+        }
+      }).then(response => {
+        /*eslint-disable no-console*/
+        console.log(response.data);
+        this.checkingCars = response.data;
+      });
+    },
+    reloadMaintainCar: function() {
+      axios({
+        method: "GET",
+        url:
+          "http://35.198.247.39/CarRentalManagement/maintainer/maintenance?account=" +
+          this.employeeInfo.account,
+        data: {},
+        config: {
+          headers: {
+            // set content type
+            "content-type": "application/json",
+            charset: "utf-8",
+            "Access-Control-Allow-Origin": "*"
+          }
+        }
+      }).then(response => {
+        /*eslint-disable no-console*/
+        console.log(response.data);
+        this.maintainCars = response.data;
+      });
+    }
+  },
+  created: function() {
+    this.reloadCheckingCar();
+    this.reloadMaintainCar();
+  }
 };
 </script>
 
 <style lang="scss" scoped>
+button {
+  cursor: pointer;
+}
 .maintenancer {
   position: relative;
   width: 80%;
@@ -153,7 +256,7 @@ export default {
         position: relative;
         bottom: 0;
       }
-      h2   {
+      h2 {
         margin: 0 0 10px 0;
         font-weight: bold;
         font-size: 20px;
@@ -174,7 +277,6 @@ export default {
       textarea {
         font-family: montserrat;
         width: 96%;
-        height: 30%;
         border: solid 1px black;
         padding: 10px;
         resize: none;
@@ -218,7 +320,6 @@ export default {
         margin: 0 0 10px 0;
         font-weight: bold;
         font-size: 20px;
-        
       }
       input {
         font-family: montserrat;

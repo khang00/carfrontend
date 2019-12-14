@@ -3,6 +3,7 @@
     <div class="login-wrapper" v-if="inLogin">
       <div class="login">
         <h1>Login</h1>
+        <p v-if="falseLogin" id="error">Incorrect username or password</p>
         <p>Username</p>
         <input type="text" v-model="username" />
         <p>Password</p>
@@ -10,15 +11,16 @@
         <button v-on:click="login">Login</button>
       </div>
     </div>
-    <maintenancer v-if="this.role == 'maintainer'" v-bind:employeeInfo="employeeInfo"/>
-    <saler v-if="role == 'saler'" v-bind:employeeInfo="employeeInfo"/>
+    <maintenancer v-if="this.role == 'maintainer'" v-bind:employeeInfo="employeeInfo" />
+    <saler v-if="role == 'saler'" v-bind:employeeInfo="employeeInfo" />
     <manager v-if="role == 'manager'" />
   </div>
 </template>
 
 <script>
 import Maintenancer from "./Maintenancer.vue";
-import Saler from "./Saler.vue"
+import Saler from "./Saler.vue";
+import Manager from "./Manager.vue";
 import axios from "axios";
 
 export default {
@@ -28,14 +30,15 @@ export default {
       password: "",
       role: "",
       inLogin: true,
+      falseLogin: false,
 
-      employeeInfo: null,
+      employeeInfo: null
     };
   },
   components: {
     maintenancer: Maintenancer,
-    saler: Saler
-
+    saler: Saler,
+    manager: Manager
   },
   methods: {
     login: function() {
@@ -57,7 +60,12 @@ export default {
       }).then(response => {
         this.employeeInfo = response.data;
         this.role = response.data.role;
-        this.inLogin = false;
+        if (response.data != "") this.inLogin = false;
+        else {
+          this.falseLogin = true;
+          this.username = "";
+          this.password = "";
+        }
       });
     }
   }
@@ -71,6 +79,12 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  #error {
+    color: red;
+    position: absolute;
+    margin-top: 150px;
+    font-size: 16px;
+  }
   .login {
     display: flex;
     flex-direction: column;

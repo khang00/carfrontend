@@ -3,34 +3,59 @@
     <h2 class="title">{{ this.title }}</h2>
     <div class="form-wrapper">
       <div class="form-object">
-        <div class="form-item" v-bind:key="info.title" v-for="info in formInfo.text">
+        <div
+          class="form-item"
+          v-bind:key="info.title"
+          v-for="info in formInfo.text"
+        >
           <p>{{ info.title }} :</p>
           <input type="text" v-model="info.value" />
         </div>
 
-        <div class="form-item" v-bind:key="info.title" v-for="info in formInfo.radio">
-          <p>{{info.title}} :</p>
+        <div
+          class="form-item"
+          v-bind:key="info.title"
+          v-for="info in formInfo.radio"
+        >
+          <p>{{ info.title }} :</p>
           <div class="radio">
-            <div class="choice" v-bind:key="choice" v-for="choice in info.choice">
+            <div
+              class="choice"
+              v-bind:key="choice"
+              v-for="choice in info.choice"
+            >
               <input
                 type="radio"
                 v-bind:name="info.title"
                 v-bind:value="choice"
                 v-model="info.value"
               />
-              <p>{{choice}}</p>
+              <p>{{ choice }}</p>
             </div>
           </div>
         </div>
       </div>
       <div id="image">
         <div class="image-display">
-          <img v-bind:src="image" v-for="image in formInfo.image.url" v-bind:key="image" v-bind:style="{ width: imageSize + 'vw', height: imageSize + 'vw' }" alt />
+          <img
+            v-bind:src="image"
+            v-for="image in formInfo.image.url"
+            v-bind:key="image"
+            v-bind:style="{ width: imageSize + 'vw', height: imageSize + 'vw' }"
+            alt
+          />
         </div>
         <label v-bind:for="this.title">
           <i class="fas fa-camera" id="upload"></i>
         </label>
-        <input style="display:none" v-bind:id="this.title" v-bind:ref="this.title" type="file" @change="loadImage" multiple />
+        <input
+          style="display:none"
+          v-bind:id="this.title"
+          v-bind:ref="this.title"
+          type="file"
+          @change="loadImage"
+          multiple
+        />
       </div>
     </div>
   </div>
@@ -48,20 +73,18 @@ export default {
     imageSize: String
   },
   data: function() {
-    return {
-      
-    };
+    return {};
   },
-  computed: {
-    
-  },
+  computed: {},
   methods: {
     loadImage: function() {
       var images = this.$refs[this.title].files;
       for (var i = 0; i < images.length; i++) {
         this.formInfo.image.raw.unshift(this.$refs[this.title].files[i]);
         this.formInfo.image.raw.pop();
-        this.formInfo.image.url.unshift(URL.createObjectURL(this.$refs[this.title].files[i]));
+        this.formInfo.image.url.unshift(
+          URL.createObjectURL(this.$refs[this.title].files[i])
+        );
         this.formInfo.image.url.pop();
       }
     }

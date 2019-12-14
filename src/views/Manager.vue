@@ -5,12 +5,12 @@
     </div>
 
     <div v-if="navInfo[0].selected" class="cars">
-      <car />
+      <car v-for="car in cars" v-bind:key="car" v-bind:car="car" role="admin" v-on:rent="goEdit(car.id, car)"/>
     </div>
     <div v-if="navInfo[1].selected" class="activities"></div>
     <div v-if="navInfo[2].selected" class="add">
-      <input-form class="form" v-bind:formInfo="owner" title="Owner" imageSize="15" key="1" />
-      <input-form class="form" v-bind:formInfo="car" title="Car" key="2" />
+      <input-form class="form" v-bind:formInfo="ownerForm" title="Owner" imageSize="15" />
+      <input-form class="form" v-bind:formInfo="carForm" title="Car" />
       <div class="button">
         <button id="approve">Submit</button>
         <button id="cancel">Cancel</button>
@@ -23,6 +23,8 @@
 import EmployeeFrame from "./../components/EmployeeFrame.vue";
 import Form from "./../components/Form.vue";
 import Car from "./../components/Car.vue";
+import axios from "axios";
+
 export default {
   components: {
     "employee-frame": EmployeeFrame,
@@ -50,7 +52,7 @@ export default {
         position: "Manager",
         image: ""
       },
-      owner: {
+      ownerForm: {
         text: [
           {
             title: "Name",
@@ -81,7 +83,7 @@ export default {
           url: [""]
         }
       },
-      car: {
+      carForm: {
         text: [
           {
             title: "Brand",
@@ -108,8 +110,37 @@ export default {
           raw: [null, null, null],
           url: ["", "", ""]
         }
-      }
+      },
+      cars: []
     };
+  },
+  created: function() {
+    this.reloadCar();
+  },
+  methods: {
+    reloadCar: function() {
+      axios({
+        method: "GET",
+        url:
+          "http://35.198.247.39/CarRentalManagement/manager/car",
+        data: {},
+        config: {
+          headers: {
+            // set content type
+            "content-type": "application/json",
+            charset: "utf-8",
+            "Access-Control-Allow-Origin": "*"
+          }
+        }
+      }).then(response => {
+        /*eslint-disable no-console*/
+        console.log(response.data);
+        this.cars = response.data;
+      });
+    },
+    goEdit: function(id, car) {
+      this.$router.push({ name: "EditCar", params: { carId: id, car: car } });
+    }
   }
 };
 </script>
@@ -146,6 +177,15 @@ export default {
       color: black;
     }
     text-align: center;
+  }
+  .cars {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 3vw;
+    grid-row-gap: 3vw;
+    margin-bottom: 5%;
+    width: 100%;
+    margin: 40px 0 0 0;
   }
 }
 </style>
