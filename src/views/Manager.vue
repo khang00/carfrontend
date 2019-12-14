@@ -5,14 +5,14 @@
     </div>
 
     <div v-if="navInfo[0].selected" class="cars">
-      <car v-for="car in cars" v-bind:key="car" v-bind:car="car" role="admin" v-on:rent="goEdit(car.id, car)"/>
+      <car v-for="car in cars" v-bind:key="car" v-bind:car="car" role="admin" />
     </div>
     <div v-if="navInfo[1].selected" class="activities"></div>
     <div v-if="navInfo[2].selected" class="add">
       <input-form class="form" v-bind:formInfo="ownerForm" title="Owner" imageSize="15" />
       <input-form class="form" v-bind:formInfo="carForm" title="Car" />
       <div class="button">
-        <button id="approve">Submit</button>
+        <button id="approve" v-on:click="addCar">Submit</button>
         <button id="cancel">Cancel</button>
       </div>
     </div>
@@ -39,11 +39,11 @@ export default {
           selected: true
         },
         {
-          title: "Activities",
+          title: "",
           selected: false
         },
         {
-          title: "Add",
+          title: "",
           selected: false
         }
       ],
@@ -104,6 +104,14 @@ export default {
           {
             title: "Location",
             value: ""
+          },
+          {
+            title: "Seat",
+            value: ""
+          },
+          {
+            title: "Description",
+            value: ""
           }
         ],
         image: {
@@ -121,8 +129,7 @@ export default {
     reloadCar: function() {
       axios({
         method: "GET",
-        url:
-          "http://35.198.247.39/CarRentalManagement/manager/car",
+        url: "http://35.198.247.39/CarRentalManagement/manager/car",
         data: {},
         config: {
           headers: {
@@ -140,6 +147,149 @@ export default {
     },
     goEdit: function(id, car) {
       this.$router.push({ name: "EditCar", params: { carId: id, car: car } });
+    },
+    addCar: function() {
+      console.log("IN");
+      var owner =  {
+            name: this.ownerForm.text[0].value,
+            phone: this.ownerForm.text[1].value,
+            address: this.ownerForm.text[2].value,
+            dob: this.ownerForm.text[3].value,
+            gender: this.ownerForm.radio[0].value,
+            totalImage: 1
+          };
+      var car = {
+            model: this.carForm.text[1].value,
+            brand: this.carForm.text[0].value,
+            color: this.carForm.text[2].value,
+            price: this.carForm.text[3].value,
+            location: this.carForm.text[4].value,
+            seat: this.carForm.text[5].value,
+            totalImage: 3,
+            description: this.carForm.text[6].value
+          }
+        console.log(owner);
+        console.log(car);
+      axios({
+        method: "POST",
+        url: "http://35.198.247.39/CarRentalManagement/manager/car",
+        data: {
+          car: {
+            model: this.carForm.text[1].value,
+            brand: this.carForm.text[0].value,
+            color: this.carForm.text[2].value,
+            price: this.carForm.text[3].value,
+            location: this.carForm.text[4].value,
+            seat: this.carForm.text[5].value,
+            totalImage: 3,
+            description: this.carForm.text[6].value
+          },
+          onwer: {
+            name: this.ownerForm.text[0].value,
+            phone: this.ownerForm.text[1].value,
+            address: this.ownerForm.text[2].value,
+            dob: this.ownerForm.text[3].value,
+            gender: this.ownerForm.radio[0].value,
+            totalImage: 1
+          },
+        },
+        config: {
+          headers: {
+            // set content type
+            "content-type": "application/json",
+            charset: "utf-8",
+            "Access-Control-Allow-Origin": "*"
+          }
+        }
+      }).then(response => {
+        /*eslint-disable no-console*/
+        // let responeCar = response.data;
+
+        // let formdata = new FormData();
+        // let id = new Blob([responeCar.id], {
+        //   type: "text/plain"
+        // });
+
+        // for(var i = 0)
+        console.log("OK");
+
+        let formdataUser = new FormData();
+        let idUser = new Blob([response.data.id], {
+          type: "text/plain"
+        });
+
+        let typeUser = new Blob(["user"], {
+          type: "text/plain"
+        });
+
+        this.ownerForm.image.raw.forEach(image => {
+          formdataUser.append("files", image, image.name);
+        });
+
+
+
+
+        let formdataCar = new FormData();
+        let idCar = new Blob([response.data.id], {
+          type: "text/plain"
+        });
+
+        let typeCar = new Blob(["car"], {
+          type: "text/plain"
+        });
+
+        this.carForm.image.raw.forEach(image => {
+          formdataCar.append("files", image, image.name);
+        });
+        // for (var i = 0; i < this.apps.length; i++) {
+        //   let file = this.apps[i];
+        //   formdata.append("files", file, file.name);
+        // }
+        /* eslint-disable no-console */
+
+        formdataUser.append("id", idUser);
+        formdataUser.append("type", typeUser);
+
+        formdataCar.append("id", idCar);
+        formdataCar.append("type", typeCar);
+
+
+        axios({
+          method: "POST",
+          url: "http://35.198.247.39/CarRentalManagement/image/image",
+          data: formdataUser,
+          config: {
+            headers: {
+              // set content type
+              "content-type": undefined,
+              charset: "utf-8",
+              "Access-Control-Allow-Origin": "*"
+            }
+          }
+        }).then(response => {
+          /*eslint-disable no-console*/
+          console.log(response.data);
+          console.log("ok");
+        });
+
+        axios({
+          method: "POST",
+          url: "http://35.198.247.39/CarRentalManagement/image/image",
+          data: formdataCar,
+          config: {
+            headers: {
+              // set content type
+              "content-type": undefined,
+              charset: "utf-8",
+              "Access-Control-Allow-Origin": "*"
+            }
+          }
+        }).then(response => {
+          /*eslint-disable no-console*/
+          console.log(response.data);
+          console.log("ok");
+        });
+      });
     }
   }
 };
