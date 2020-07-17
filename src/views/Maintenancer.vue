@@ -107,7 +107,7 @@ export default {
       axios({
         method: "PUT",
         url:
-          "http://35.198.247.39/CarRentalManagement/maintainer/contract/finished",
+          "https://carredo.herokuapp.com/maintainer/contract/finished",
         data: {
           contractId: inputContractId,
           detail: inputDetail,
@@ -132,7 +132,7 @@ export default {
       axios({
         method: "PUT",
         url:
-          "http://35.198.247.39/CarRentalManagement/maintainer/maintenance/finished",
+          "https://carredo.herokuapp.com/maintainer/maintenance/finished",
         data: {
           contractId: inputContractId,
           detail: inputDetail,
@@ -156,7 +156,7 @@ export default {
       axios({
         method: "GET",
         url:
-          "http://35.198.247.39/CarRentalManagement/maintainer/contract?account=" +
+          "https://carredo.herokuapp.com/maintainer/contract?account=" +
           this.employeeInfo.account,
         data: {},
         config: {
@@ -177,7 +177,7 @@ export default {
       axios({
         method: "GET",
         url:
-          "http://35.198.247.39/CarRentalManagement/maintainer/maintenance?account=" +
+          "https://carredo.herokuapp.com/maintainer/maintenance?account=" +
           this.employeeInfo.account,
         data: {},
         config: {

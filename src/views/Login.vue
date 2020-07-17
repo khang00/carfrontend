@@ -12,7 +12,7 @@
       </div>
     </div>
     <maintenancer v-if="this.role == 'maintainer'" v-bind:employeeInfo="employeeInfo" />
-    <saler v-if="role == 'saler'" v-bind:employeeInfo="employeeInfo" />
+    <saler v-if="role == 'sale'" v-bind:employeeInfo="employeeInfo" />
     <manager v-if="role == 'manager'" />
   </div>
 </template>
@@ -44,7 +44,7 @@ export default {
     login: function() {
       axios({
         method: "POST",
-        url: "http://35.198.247.39/CarRentalManagement/authentic/employee",
+        url: "https://carredo.herokuapp.com/authenticate",
         data: {
           account: this.username,
           pass: this.password

@@ -27,14 +27,14 @@ export default {
   },
   data: function() {
     return {
-      
+
     };
   },
   methods: {
     approve: function() {
       axios({
         method: "PUT",
-        url: "http://35.198.247.39/CarRentalManagement/saler/contract/approve",
+        url: "https://carredo.herokuapp.com/saler/contract/approve",
         data: {
           contractId: this.contractId,
           salerAccount: this.salerAccount

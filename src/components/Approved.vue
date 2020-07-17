@@ -36,7 +36,7 @@ export default {
     payment: function() {
       axios({
         method: "PUT",
-        url: "http://35.198.247.39/CarRentalManagement/saler/contract/payment",
+        url: "https://carredo.herokuapp.com/saler/contract/payment",
         data: {
           contractId: this.contractId,
           salerAccount: this.salerAccount

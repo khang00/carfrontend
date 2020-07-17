@@ -129,7 +129,7 @@ export default {
     reloadCar: function() {
       axios({
         method: "GET",
-        url: "http://35.198.247.39/CarRentalManagement/manager/car",
+        url: "https://carredo.herokuapp.com/manager/car",
         data: {},
         config: {
           headers: {
@@ -172,7 +172,7 @@ export default {
         console.log(car);
       axios({
         method: "POST",
-        url: "http://35.198.247.39/CarRentalManagement/manager/car",
+        url: "https://carredo.herokuapp.com/manager/car",
         data: {
           car: {
             model: this.carForm.text[1].value,
@@ -256,7 +256,7 @@ export default {
 
         axios({
           method: "POST",
-          url: "http://35.198.247.39/CarRentalManagement/image/image",
+          url: "https://carredo.herokuapp.com/image/image",
           data: formdataUser,
           config: {
             headers: {
@@ -274,7 +274,7 @@ export default {
 
         axios({
           method: "POST",
-          url: "http://35.198.247.39/CarRentalManagement/image/image",
+          url: "https://carredo.herokuapp.com/image/image",
           data: formdataCar,
           config: {
             headers: {

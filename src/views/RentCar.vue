@@ -98,7 +98,7 @@ export default {
     axios({
       method: "GET",
       url:
-        "http://35.198.247.39/CarRentalManagement/renting/car?id=" + this.carId,
+        "https://carredo.herokuapp.com/renting/car?id=" + this.carId,
       config: {
         headers: {
           // set content type
@@ -115,7 +115,7 @@ export default {
     requestCar: function() {
       axios({
         method: "POST",
-        url: "http://35.198.247.39/CarRentalManagement/renting/car",
+        url: "https://carredo.herokuapp.com/renting/car",
         data: {
           car: { id: this.currCar.id },
           renter: {

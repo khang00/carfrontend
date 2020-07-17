@@ -82,7 +82,7 @@ export default {
 
       axios({
         method: "POST",
-        url: "http://35.198.247.39/CarRentalManagement/manager/car",
+        url: "https://carredo.herokuapp.com/manager/car",
         data: car,
         config: {
           headers: {

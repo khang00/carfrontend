@@ -91,7 +91,7 @@ const carsModule = {
     getCarsFromDB(context) {
       axios({
         method: "GET",
-        url: "http://35.198.247.39/CarRentalManagement/renting/car/available",
+        url: "https://carredo.herokuapp.com/renting/car/available",
         config: {
           headers: {
             // set content type
@@ -107,7 +107,7 @@ const carsModule = {
     getCarAttributesFromDB(context) {
       axios({
         method: "GET",
-        url: "http://35.198.247.39/CarRentalManagement/renting/car/filter",
+        url: "https://carredo.herokuapp.com/renting/car/filter",
         config: {
           headers: {
             // set content type
