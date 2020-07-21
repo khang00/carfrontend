@@ -135,8 +135,7 @@ export default {
           headers: {
             // set content type
             "content-type": "application/json",
-            charset: "utf-8",
-            "Access-Control-Allow-Origin": "*"
+            charset: "utf-8"
           }
         }
       }).then(response => {

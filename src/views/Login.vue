@@ -5,7 +5,7 @@
         <h1>Login</h1>
         <p v-if="falseLogin" id="error">Incorrect username or password</p>
         <p>Username</p>
-        <input type="text" v-model="username" />
+        <input type="text" v-model="account" />
         <p>Password</p>
         <input type="text" v-model="password" />
         <button v-on:click="login">Login</button>
@@ -26,12 +26,11 @@ import axios from "axios";
 export default {
   data: function() {
     return {
-      username: "",
+      account: "",
       password: "",
       role: "",
       inLogin: true,
       falseLogin: false,
-
       employeeInfo: null
     };
   },
@@ -46,24 +45,18 @@ export default {
         method: "POST",
         url: "https://carredo.herokuapp.com/authenticate",
         data: {
-          account: this.username,
-          pass: this.password
-        },
-        config: {
-          headers: {
-            // set content type
-            "content-type": "application/json",
-            charset: "utf-8",
-            "Access-Control-Allow-Origin": "*"
-          }
+          role: "SALE",
+          account: this.account,
+          password: this.password
         }
       }).then(response => {
         this.employeeInfo = response.data;
         this.role = response.data.role;
+        this.$router.push("/saler");
         if (response.data != "") this.inLogin = false;
         else {
           this.falseLogin = true;
-          this.username = "";
+          this.account = "";
           this.password = "";
         }
       });

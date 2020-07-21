@@ -98,7 +98,7 @@ export default {
     reloadPendingRequest: function() {
       axios({
         method: "GET",
-        url: "https://carredo.herokuapp.com/saler/contract/waiting",
+        url: "https://carredo.herokuapp.com/sale/contract/waiting",
         config: {
           headers: {
             // set content type
@@ -116,7 +116,7 @@ export default {
       axios({
         method: "GET",
         url:
-          "https://carredo.herokuapp.com/saler/contract/approvedByAccount?account=" +
+          "https://carredo.herokuapp.com/sale/contract/approvedByAccount?account=" +
           this.employeeInfo.account,
         config: {
           headers: {

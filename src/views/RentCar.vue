@@ -115,7 +115,7 @@ export default {
     requestCar: function() {
       axios({
         method: "POST",
-        url: "https://carredo.herokuapp.com/renting/car",
+        url: "https://carredo.herokuapp.com/renting",
         data: {
           car: { id: this.currCar.id },
           renter: {
